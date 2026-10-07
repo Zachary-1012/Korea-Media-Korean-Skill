@@ -1,6 +1,6 @@
 # Korea Media Korean Skill
 
-Zachary 的韩国媒体传播韩语学习与申请 Skill。
+Zachary 的韩国媒体传播韩语学习与申请产品。
 
 面向：
 - 首尔大学（SNU）传播 / 媒体相关方向
@@ -10,57 +10,151 @@ Zachary 的韩国媒体传播韩语学习与申请 Skill。
 
 ## 在线学习
 
-GitHub Pages：
+完整 48 节课程：
 
 https://zachary-1012.github.io/Korea-Media-Korean-Skill/
 
-## 内容
+## 产品目标
 
-- 48 节动态韩语课程
-- TOPIK 学习路线
-- SNU / CAU 申请与专业韩语
-- 本科 / 硕士 / 博士动态切换
-- 研究计划、Personal Statement、面试与教授沟通
-- 媒体 / 广告 / 营销 / PR / AI / 数据与研究方法词汇
-- 经典及 2025–2026 韩剧情境式听力与 Shadowing
-- 浏览器本地韩语 TTS（Speech Synthesis）
-- 学习进度保存在浏览器 localStorage
+这不是“看完课程就算学会”的静态教材。
 
-## Skill
+核心学习闭环：
 
-Agent Skill 定义见：
+1. 诊断当前真实能力；
+2. 针对弱项训练；
+3. 强制产生真实韩语输出；
+4. 获得反馈；
+5. 重说 / 重写；
+6. 错误进入下一轮主动回忆；
+7. 达标后再提高难度。
 
-`skill/SKILL.md`
+能力分别覆盖：
+
+- 听力
+- 口语
+- 阅读
+- 写作
+- 词汇 / 语法
+- TOPIK
+- 媒体 / 广告 / 营销 / PR 专业韩语
+- 研究生 / 博士学术韩语
+- SNU / CAU 申请与面试
+
+## Smart Learning UI
+
+MCP Apps UI 会根据任务自动切换：
+
+- 学校选择 → Compare UI
+- 词汇 → Vocabulary UI
+- 面试 → Interview UI
+- 韩剧原片 → Shadowing UI
+- TOPIK → Exam / Quiz UI
+- 写作 → Writing Editor + Rubric
+- 真实交流 → Role-play UI
+- 水平不明确 → Diagnostic UI
+- 每日学习 → Adaptive Session UI
+
+简单问题不会强行显示复杂 UI。
+
+## 真实应用场景
+
+口语训练包含：
+
+- 韩国大学行政办公室
+- 教授 Office Hour
+- 研究生小组项目
+- Seminar 讨论
+- 广告代理公司 Client Meeting
+- Campaign Pitch
+
+写作训练包含：
+
+- TOPIK II 写作
+- 教授邮件
+- Research Interest
+- Campaign Brief
+
+## TOPIK
+
+考试模式以当前 NIIED / TOPIK 官方结构为准。
+
+产品会明确区分：
+
+- 官方考试结构 / 等级门槛
+- 内部练习
+- AI 训练估分
+
+任何内部练习分数都不冒充正式 TOPIK 成绩。
+
+## 韩剧与听力
+
+- 经典及 2025–2026 韩剧情境式学习
+- 官方 Netflix / Netflix K-Content 公开视频入口
+- Shadowing
+- 设备本地 ko-KR TTS
+- 私有字幕 / 剧本练习盒只保存在浏览器 localStorage
+
+公开仓库不托管韩剧完整音轨或完整正式剧本。
 
 ## MCP
 
-可选 MCP Server 见：
+远程 MCP 使用 Node + 官方 MCP SDK + MCP Apps UI。
 
-`mcp/server.py`
+当前工具包括：
 
-它暴露：
-- `korean://course`：完整 HTML 课程资源
-- `get_course_url`：公开网页地址
-- `build_study_plan`：按本科 / 硕士 / 博士生成学习重点
+- compare_programs
+- build_study_plan
+- practice_interview
+- practice_drama_shadowing
+- look_up_korean_term
+- practice_topik_quiz
+- start_korean_diagnostic
+- practice_real_world_korean
+- practice_korean_writing
+- open_topik_exam_mode
+- build_daily_korean_session
+- get_course_url
 
-## 版权与韩剧素材
+Skill：
 
-本项目不会大量复制受版权保护的韩剧完整剧本。韩剧用于语言、语气、职业与文化场景研究；较长学习对白为原创或改写式教学场景，另含通用高频韩语短句。
+`skills/korea-media-korean/SKILL.md`
+
+## 隐私
+
+- 当前远程 MCP 不要求用户账号登录；
+- 不建立个人学习数据库；
+- GitHub Pages 学习进度和私有练习盒保存在用户浏览器本地；
+- 不应把用户完整学习正文作为持久用户档案记录。
+
+详见：
+- [Privacy Policy](./privacy.html)
+- [Terms of Service](./terms.html)
+
+## 授权与商业使用
+
+**本仓库公开可见，但不是开源授权。**
+
+普通用户可以通过官方托管页面和插件进行个人学习。
+
+未经 Zachary 事先书面授权，第三方不得：
+
+- 复制或修改源码后用于其他产品；
+- 再发布、镜像、重新托管或分发课程；
+- 发布 fork / 衍生版本；
+- 用于付费培训、咨询、Agency 客户交付、企业商业培训、SaaS、订阅产品或白标服务；
+- 翻译、重新包装、嵌入、捆绑、转售项目的重要部分；
+- 在商业或分发型产品中复用 Smart Learning UI、MCP 工具、Skill、课程结构、提示词或原创教学材料。
+
+商业授权、改编权、再分发权或机构部署必须事先取得书面授权。
+
+详见：
+- [LICENSE](./LICENSE)
+- [Commercial Licensing](./COMMERCIAL-LICENSE.md)
+
+Copyright © 2026 Zachary. All Rights Reserved.
 
 ## 招生信息
 
-学校要求会变化。网页中的招生信息绑定制作时可核验的官方资料，但真正申请时必须重新核对当批 SNU / CAU 官方招生简章。
+学校规则会变化。真正申请时必须重新核对对应年份、学历层级和项目的 SNU / CAU 官方招生简章。
 
-## 视觉与学习体验 V2
-
-公开页已升级为更轻的学习工作区：
-- 紧凑浅色侧边栏；
-- 中央单列阅读区；
-- 本科 / 硕士 / 博士切换；
-- 说明、版权、TTS、招生来源统一收进 About；
-- 学校详细说明按需展开；
-- 6 个 Netflix / Netflix K-Content 官方原片播放器；
-- 私有字幕 / 剧本练习盒仅保存在浏览器 localStorage；
-- 普通句子继续使用系统 ko-KR TTS，官方原片使用演员原声。
-
-公开仓库不托管韩剧完整音轨或完整正式剧本。
+本产品不能保证 TOPIK 通过或学校录取；它负责的是提高可验证的学习与申请准备能力。

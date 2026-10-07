@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Korean Smart Learning UI</title>
+<style>
+:root{color-scheme:light dark;--bg:#fff;--ink:#1f1f1f;--muted:#6b6b67;--line:#e7e7e2;--soft:#f5f5f2;--accent:#315d49;--accentSoft:#eaf3ee;--danger:#9a4848}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:transparent;font-family:Inter,"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+body{padding:10px}.shell{max-width:760px;margin:0 auto}.head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+.eyebrow{font-size:10px;letter-spacing:.09em;font-weight:700;color:var(--muted)}h1{font-size:20px;line-height:1.25;margin:4px 0 0}.sub{font-size:12px;color:var(--muted);margin-top:4px}
+.card{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--bg);margin:10px 0}.soft{background:var(--soft)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.grow{flex:1}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button,select,input,textarea{font:inherit}button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:9px;padding:8px 10px;cursor:pointer}
+button.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}button:disabled{opacity:.5;cursor:not-allowed}
+.chip{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px 7px;font-size:10px;color:var(--muted);margin:2px 3px 2px 0}
+.big-ko{font-size:26px;font-weight:700;line-height:1.35;word-break:keep-all}.ko{font-weight:650}.zh{font-size:12px;color:var(--muted)}
+.program h3{margin:4px 0;font-size:15px}.program p{font-size:12px;color:var(--muted);margin:6px 0}.program.recommended{border-color:#92b2a1;background:var(--accentSoft)}
+.list{margin:8px 0;padding-left:19px}.list li{font-size:12px;margin:5px 0}.bar{height:7px;border-radius:99px;background:#e5e5e0;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
+.metric{font-size:12px;color:var(--muted)}.metric b{font-size:18px;color:var(--ink);display:block}
+.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.field label{display:block;font-size:10px;color:var(--muted);margin-bottom:4px}.field input,.field select{width:100%;padding:7px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.timer{font-variant-numeric:tabular-nums;font-size:28px;font-weight:700}.hint{display:none;margin-top:8px;padding:10px;background:var(--soft);border-radius:10px;font-size:12px}.hint.open{display:block}
+.option{width:100%;text-align:left;margin:5px 0}.option.correct{border-color:#5f8a71;background:#e7f3eb}.option.wrong{border-color:#b96c6c;background:#faecec}
+.status{font-size:11px;color:var(--muted)}.error{color:var(--danger)}.footer{margin-top:10px;font-size:10px;color:var(--muted)}
+textarea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--bg);color:var(--ink);resize:vertical;line-height:1.6}
+.task-title{font-size:13px;font-weight:700;margin-bottom:6px}.counter{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.skill-box{padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--soft)}
+.session-block{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.session-block:last-child{border-bottom:0}
+.score{font-size:22px;font-weight:700}.pass{color:var(--accent)}
+@media(max-width:580px){body{padding:6px}.grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}.card{padding:12px}.big-ko{font-size:22px}}
+@media(prefers-color-scheme:dark){:root{--bg:#20201f;--ink:#f3f3f1;--muted:#aaa9a5;--line:#3a3a38;--soft:#2a2a28;--accent:#7fac92;--accentSoft:#26352d}.bar{background:#444}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <div class="head">
+    <div><div class="eyebrow">SMART LEARNING UI</div><h1 id="title">韩国媒体传播韩语</h1><div class="sub" id="subtitle">等待学习任务…</div></div>
+    <button id="fullscreen" title="全屏">↗</button>
+  </div>
+  <div id="root"><div class="card soft">正在连接 ChatGPT 学习界面…</div></div>
+  <div class="footer">Zachary · SNU / CAU · Media / Advertising / Marketing / PR</div>
+</main>
+<script type="module">
+const root=document.getElementById("root");
+const title=document.getElementById("title");
+const subtitle=document.getElementById("subtitle");
+let rpcId=0,latest=null,timerHandle=null,timerRemaining=0;
+const pending=new Map();
+
+const esc=(v)=>String(v??"").replace(/[&<>"']/g,(m)=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
+const rpcNotify=(method,params)=>window.parent.postMessage({jsonrpc:"2.0",method,params},"*");
+const rpcRequest=(method,params)=>new Promise((resolve,reject)=>{const id=++rpcId;pending.set(id,{resolve,reject});window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");});
+const bridgeReady=(async()=>{try{await rpcRequest("ui/initialize",{appInfo:{name:"korea-media-korean-smart-ui",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});rpcNotify("ui/notifications/initialized",{});}catch(e){console.error(e);}})();
+
+async function callTool(name,args){
+  if(window.openai?.callTool){const r=await window.openai.callTool(name,args);updateFrom(r);return r;}
+  await bridgeReady;const r=await rpcRequest("tools/call",{name,arguments:args});updateFrom(r);return r;
+}
+function speak(text,rate=.88){
+  if(!("speechSynthesis" in window))return;
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="ko-KR";u.rate=rate;speechSynthesis.speak(u);
+}
+async function openExternal(href){
+  if(window.openai?.openExternal){await window.openai.openExternal({href,redirectUrl:false});return;}
+  window.open(href,"_blank","noopener,noreferrer");
+}
+async function sendFollowUp(prompt){
+  const text=String(prompt||"").trim();if(!text)return;
+  try{
+    await bridgeReady;
+    await rpcRequest("ui/message",{role:"user",content:[{type:"text",text}]});
+    return;
+  }catch(e){
+    if(window.openai?.sendFollowUpMessage){await window.openai.sendFollowUpMessage({prompt:text,scrollToBottom:true});return;}
+    console.error(e);
+  }
+}
+function startSpeechInto(textareaId,statusId){
+  const Ctor=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!Ctor){const s=document.getElementById(statusId);if(s)s.textContent="当前浏览器没有可用的韩语语音识别，请直接输入。";return;}
+  const rec=new Ctor();rec.lang="ko-KR";rec.interimResults=true;rec.continuous=false;
+  const ta=document.getElementById(textareaId),status=document.getElementById(statusId);
+  let finalText=ta.value?ta.value+" ":"";
+  rec.onstart=()=>{if(status)status.textContent="正在听…请用韩语回答。";};
+  rec.onresult=(event)=>{
+    let interim="",done="";
+    for(let i=event.resultIndex;i<event.results.length;i++){const t=event.results[i][0].transcript;if(event.results[i].isFinal)done+=t;else interim+=t;}
+    if(done)finalText+=done;
+    ta.value=finalText+interim;
+    ta.dispatchEvent(new Event("input"));
+  };
+  rec.onerror=(e)=>{if(status)status.textContent="语音识别失败："+e.error+"。可以改用键盘输入。";};
+  rec.onend=()=>{if(status)status.textContent="已停止录音；请检查转写后再提交。";};
+  rec.start();
+}
+function updateFrom(resp){
+  const data=resp?.structuredContent||resp?.result?.structuredContent||resp?.mcp_tool_result?.structuredContent||null;
+  if(data){latest=data;render(data);}
+}
+window.addEventListener("message",(event)=>{
+  if(event.source!==window.parent)return;const m=event.data;if(!m||m.jsonrpc!=="2.0")return;
+  if(m.id!==undefined&&pending.has(m.id)){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);return;}
+  if(m.method==="ui/notifications/tool-result")updateFrom(m.params);
+},{passive:true});
+if(window.openai?.toolOutput){latest=window.openai.toolOutput;render(latest);}
+
+function setHead(data,kicker){
+  title.textContent=data.title||"韩国媒体传播韩语";
+  subtitle.textContent=kicker||"根据当前任务生成交互学习界面";
+}
+function render(data){
+  if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
+  const kind=data.ui_type;
+  if(kind==="compare")return renderCompare(data);
+  if(kind==="plan")return renderPlan(data);
+  if(kind==="interview")return renderInterview(data);
+  if(kind==="drama")return renderDrama(data);
+  if(kind==="vocab")return renderVocab(data);
+  if(kind==="quiz")return renderQuiz(data);
+  if(kind==="diagnostic")return renderDiagnostic(data);
+  if(kind==="conversation")return renderConversation(data);
+  if(kind==="writing")return renderWriting(data);
+  if(kind==="exam")return renderExam(data);
+  if(kind==="session")return renderSession(data);
+  setHead(data,"Text mode");root.innerHTML="<div class='card'>"+esc(JSON.stringify(data))+"</div>";
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderCompare(d){
+  setHead(d,d.degree+" · "+esc(d.focus||"media_marketing"));
+  let html="<div class='grid'>";
+  d.items.forEach((p)=>{const rec=p.id===d.recommendation;html+="<section class='card program "+(rec?"recommended":"")+"'>"+(rec?"<span class='chip'>优先匹配</span>":"")+"<span class='chip'>"+esc(p.style)+"</span><h3>"+esc(p.name)+"</h3><div class='zh'>"+esc(p.english)+"</div><p>"+esc(p.description)+"</p><p><b>与你的关系：</b>"+esc(p.zachary)+"</p><div>"+p.fit.map(x=>"<span class='chip'>"+esc(x)+"</span>").join("")+"</div></section>";});
+  html+="</div><div class='row'><button class='primary' id='go-interview'>直接练 CAU 面试</button><button id='go-plan'>生成申请韩语计划</button></div>";
+  root.innerHTML=html;
+  document.getElementById("go-interview").onclick=()=>callTool("practice_interview",{degree:"master",school:"CAU",major:"광고홍보학과",index:0});
+  document.getElementById("go-plan").onclick=()=>callTool("build_study_plan",{degree:"master",months:9,hours_per_week:12,topik_target:5});
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderPlan(d){
+  setHead(d,d.target);
+  let mix=d.mix.map(x=>"<div style='margin:9px 0'><div class='row'><span class='grow'>"+esc(x[0])+"</span><b>"+esc(x[1])+"%</b></div><div class='bar'><i style='width:"+Number(x[1])+"%'></i></div></div>").join("");
+  root.innerHTML="<div class='card'><div class='formgrid'><div class='field'><label>层级</label><select id='degree'><option value='undergrad'>本科</option><option value='master'>硕士</option><option value='phd'>博士</option></select></div><div class='field'><label>月数</label><input id='months' type='number' min='1' max='24' value='"+d.months+"'></div><div class='field'><label>每周小时</label><input id='hours' type='number' min='2' max='40' value='"+d.hours_per_week+"'></div><div class='field'><label>TOPIK</label><input id='topik' type='number' min='1' max='6' value='"+d.topik_target+"'></div></div><div class='row' style='margin-top:10px'><button class='primary' id='recalc'>重新计算</button><div class='metric'><b>"+d.estimated_hours+"h</b>"+d.weeks+" 周预计学习量</div></div></div><div class='card soft'><b>每周结构</b>"+mix+"</div><div class='card'><b>阶段出口</b><ol class='list'>"+d.milestones.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ol></div>";
+  document.getElementById("degree").value=d.degree;
+  document.getElementById("recalc").onclick=()=>callTool("build_study_plan",{degree:document.getElementById("degree").value,months:Number(document.getElementById("months").value),hours_per_week:Number(document.getElementById("hours").value),topik_target:Number(document.getElementById("topik").value)});
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderInterview(d){
+  setHead(d,d.degree+" · "+d.school+" · "+d.major);
+  timerRemaining=d.timer_seconds;
+  root.innerHTML="<div class='card'><div class='big-ko'>"+esc(d.question_ko)+"</div><div class='zh'>"+esc(d.question_zh)+"</div></div><div class='card soft'><div class='row'><div class='timer' id='timer'>"+timerRemaining+"</div><span class='status'>秒 · 直接口答，不看稿</span></div><div class='row'><button class='primary' id='start-timer'>开始计时</button><button id='hint-btn'>结构提示</button><button id='next-q'>下一题</button></div><div class='hint' id='hint'>"+esc(d.hint)+"</div></div><div class='card'><b>答完自己检查</b><div>"+d.self_check.map(x=>"<span class='chip'>"+esc(x)+"</span>").join("")+"</div></div>";
+  document.getElementById("start-timer").onclick=()=>{if(timerHandle)return;timerHandle=setInterval(()=>{timerRemaining=Math.max(0,timerRemaining-1);document.getElementById("timer").textContent=timerRemaining;if(timerRemaining===0){clearInterval(timerHandle);timerHandle=null;}},1000);};
+  document.getElementById("hint-btn").onclick=()=>document.getElementById("hint").classList.toggle("open");
+  document.getElementById("next-q").onclick=()=>callTool("practice_interview",{degree:d.degree,school:d.school,major:d.major,index:d.next_index});
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderDrama(d){
+  setHead(d,d.clip.title+" · "+d.clip.focus);
+  root.innerHTML="<div class='card'><div class='row'><div class='grow'><b>"+esc(d.clip.title)+"</b><div class='zh'>"+esc(d.clip.focus)+"</div></div><button class='primary' id='open-clip'>打开官方原片 ↗</button></div></div><div class='card'><b>Shadowing 流程</b><ol class='list'>"+d.steps.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ol></div><div class='card soft'><b>练习句</b><div id='practice-lines'>"+d.clip.practice.map((x,i)=>"<div class='row' style='padding:8px 0;border-bottom:1px solid var(--line)'><button data-speak='"+i+"'>🔊</button><div class='grow'><div class='ko'>"+esc(x[0])+"</div><div class='zh'>"+esc(x[1])+"</div></div></div>").join("")+"</div></div><div class='status'>"+esc(d.copyright_note)+"</div>";
+  document.getElementById("open-clip").onclick=()=>openExternal(d.clip.url);
+  document.querySelectorAll("[data-speak]").forEach(b=>b.onclick=()=>speak(d.clip.practice[Number(b.dataset.speak)][0]));
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderVocab(d){
+  setHead(d,d.en);
+  root.innerHTML="<div class='card'><div class='row'><div class='grow'><div class='big-ko'>"+esc(d.term)+"</div><div>"+esc(d.zh)+"</div><div class='zh'>"+esc(d.en)+"</div></div><button class='primary' id='speak-term'>🔊 朗读</button></div></div><div class='card soft'><div class='ko'>"+esc(d.example)+"</div><div class='zh'>"+esc(d.exampleZh)+"</div><div class='row' style='margin-top:10px'><button id='speak-example'>听例句</button><button id='make-quiz'>做 TOPIK 小测</button></div></div>";
+  document.getElementById("speak-term").onclick=()=>speak(d.term,.78);
+  document.getElementById("speak-example").onclick=()=>speak(d.example,.84);
+  document.getElementById("make-quiz").onclick=()=>callTool("practice_topik_quiz",{level:5,index:0});
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderQuiz(d){
+  setHead(d,"先选答案，再看解释");
+  root.innerHTML="<div class='card'><div class='ko'>"+esc(d.prompt)+"</div><div id='options' style='margin-top:10px'>"+d.options.map((x,i)=>"<button class='option' data-opt='"+i+"'>"+String.fromCharCode(65+i)+". "+esc(x)+"</button>").join("")+"</div><div class='hint' id='explain'>"+esc(d.explanation)+"</div></div><div class='row'><button id='next-quiz'>下一题</button></div>";
+  document.querySelectorAll("[data-opt]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-opt]").forEach(x=>x.disabled=true);const i=Number(b.dataset.opt);b.classList.add(i===d.answer?"correct":"wrong");document.querySelector("[data-opt='"+d.answer+"']").classList.add("correct");document.getElementById("explain").classList.add("open");});
+  document.getElementById("next-quiz").onclick=()=>callTool("practice_topik_quiz",{level:d.level,index:d.next_index});
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderDiagnostic(d){
+  setHead(d,"先定位弱项，再训练；不冒充官方 TOPIK 成绩");
+  const objective=d.objective.map((q,qi)=>{
+    const lead=q.audio?"<button data-diag-speak='"+qi+"'>🔊 听题</button>":"";
+    const passage=q.passage?"<div class='card soft'><div class='ko'>"+esc(q.passage)+"</div></div>":"";
+    return "<section class='card' data-diag='"+qi+"'><div class='task-title'>"+(qi+1)+". "+esc(q.skill)+"</div>"+lead+passage+"<div class='ko' style='margin:8px 0'>"+esc(q.question)+"</div>"+q.options.map((x,i)=>"<button class='option diag-opt' data-q='"+qi+"' data-o='"+i+"'>"+String.fromCharCode(65+i)+". "+esc(x)+"</button>").join("")+"</section>";
+  }).join("");
+  root.innerHTML="<div class='status'>"+esc(d.note)+"</div>"+objective+
+    "<section class='card'><div class='task-title'>写作诊断 · "+esc(d.writing.target)+"</div><div class='ko'>"+esc(d.writing.prompt)+"</div><textarea id='diag-writing' placeholder='在这里写韩文，不要求完美。'></textarea><div class='counter' id='diag-writing-count'>0 字符</div></section>"+
+    "<section class='card'><div class='task-title'>口语诊断 · "+d.speaking.seconds+" 秒</div><div class='ko'>"+esc(d.speaking.prompt)+"</div><textarea id='diag-speaking' placeholder='可以直接输入，也可以用语音识别转写。'></textarea><div class='row'><button id='diag-mic'>🎤 韩语语音识别</button><span class='status' id='diag-mic-status'>语音识别可用性取决于当前浏览器。</span></div></section>"+
+    "<div class='row'><button class='primary' id='diag-submit'>提交给 ChatGPT 做完整诊断</button><button id='diag-session'>先按写作弱项开始今天训练</button></div>";
+  const answers={};
+  document.querySelectorAll("[data-diag-speak]").forEach(b=>b.onclick=()=>speak(d.objective[Number(b.dataset.diagSpeak)].audio,.82));
+  document.querySelectorAll(".diag-opt").forEach(b=>b.onclick=()=>{
+    const qi=Number(b.dataset.q),oi=Number(b.dataset.o);answers[qi]=oi;
+    document.querySelectorAll("[data-q='"+qi+"']").forEach(x=>{x.classList.remove("correct","wrong");});
+    b.classList.add(oi===d.objective[qi].answer?"correct":"wrong");
+    document.querySelector("[data-q='"+qi+"'][data-o='"+d.objective[qi].answer+"']").classList.add("correct");
+  });
+  const wt=document.getElementById("diag-writing");wt.oninput=()=>document.getElementById("diag-writing-count").textContent=wt.value.length+" 字符";
+  document.getElementById("diag-mic").onclick=()=>startSpeechInto("diag-speaking","diag-mic-status");
+  document.getElementById("diag-session").onclick=()=>callTool("build_daily_korean_session",{degree:d.degree,minutes:45,topik_target:d.target_level,weak_skill:"writing"});
+  document.getElementById("diag-submit").onclick=()=>{
+    const objectiveSummary=d.objective.map((q,i)=>q.skill+": "+(answers[i]===q.answer?"正确":"未答/错误")).join("；");
+    const prompt="请作为我的韩语诊断教练，结合韩国国家标准课程的听说读写能力框架和 TOPIK 备考要求，对以下诊断做严格但易懂的评估。不要冒充官方 TOPIK 成绩。先判断各维度强弱，再给下一阶段训练优先级和 7 天计划。\n\n客观题："+objectiveSummary+"\n\n写作回答：\n"+wt.value+"\n\n口语转写/回答：\n"+document.getElementById("diag-speaking").value+"\n\n目标：TOPIK "+d.target_level+"，申请层级："+d.degree+"。";
+    sendFollowUp(prompt);
+  };
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderConversation(d){
+  setHead(d,"真实世界任务，不背模板");
+  root.innerHTML="<div class='card soft'><div class='task-title'>场景</div><div>"+esc(d.context)+"</div><div class='zh'>"+esc(d.role)+"</div></div>"+
+    "<div class='card'><div class='task-title'>对方先说</div><div class='big-ko'>"+esc(d.opening)+"</div><div class='row' style='margin-top:10px'><button id='conv-listen'>🔊 听原句</button></div></div>"+
+    "<div class='card'><div class='task-title'>你的任务</div><div>"+esc(d.goal)+"</div><div style='margin-top:8px'>"+d.phrases.map(x=>"<span class='chip'>"+esc(x)+"</span>").join("")+"</div></div>"+
+    "<div class='card'><textarea id='conv-answer' placeholder='用韩语回答。可以先说得简单，但要真的完成任务。'></textarea><div class='row'><button id='conv-mic'>🎤 说韩语</button><button class='primary' id='conv-send'>发送并继续真实对话</button><span class='status' id='conv-status'></span></div></div>";
+  document.getElementById("conv-listen").onclick=()=>speak(d.opening,.84);
+  document.getElementById("conv-mic").onclick=()=>startSpeechInto("conv-answer","conv-status");
+  document.getElementById("conv-send").onclick=()=>{
+    const answer=document.getElementById("conv-answer").value.trim();if(!answer){document.getElementById("conv-status").textContent="先用韩语回答一句。";return;}
+    const prompt="现在继续一场真实韩语角色扮演。场景："+d.title+"。"+d.role+" 背景："+d.context+" 任务："+d.goal+"。对方刚才说："+d.opening+"。我的回答是：\n\""+answer+"\"\n\n请严格保持角色，用自然韩语继续下一轮，不要立刻结束。连续对话 4–6 轮后，再用中文给我复盘：任务完成度、自然度、敬语/语体、语法词汇、可直接替换成更自然韩国人表达的句子。不要把我的错误一次性全改到我无法继续对话。";
+    sendFollowUp(prompt);
+  };
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderWriting(d){
+  setHead(d,d.mode+" · "+d.target_chars);
+  root.innerHTML="<div class='card'><div class='task-title'>题目</div><div class='big-ko' style='font-size:18px'>"+esc(d.prompt)+"</div><div class='zh'>"+esc(d.promptZh)+"</div></div>"+
+    "<div class='card soft'><div class='task-title'>完成条件</div>"+d.requirements.map(x=>"<span class='chip'>"+esc(x)+"</span>").join("")+"</div>"+
+    "<div class='card'><textarea id='writing-draft' placeholder='在这里直接写韩文。先完成，再修改。'></textarea><div class='row'><span class='counter grow' id='writing-count'>0 字符 · 目标 "+esc(d.target_chars)+"</span><button class='primary' id='writing-submit'>提交给 ChatGPT 批改</button></div></div>"+
+    "<div class='card'><div class='task-title'>评分标准</div>"+d.rubric.map(r=>"<div style='padding:6px 0;border-bottom:1px solid var(--line)'><b>"+esc(r[0])+" · "+esc(r[1])+"</b><div class='zh'>"+esc(r[2])+"</div></div>").join("")+"</div>";
+  const ta=document.getElementById("writing-draft");ta.oninput=()=>document.getElementById("writing-count").textContent=ta.value.length+" 字符 · 目标 "+d.target_chars;
+  document.getElementById("writing-submit").onclick=()=>{
+    const draft=ta.value.trim();if(!draft){document.getElementById("writing-count").textContent="请先完成一版，再提交。";return;}
+    const rubric=d.rubric.map(r=>r[0]+"("+r[1]+")："+r[2]).join("；");
+    const prompt="请批改我的韩语写作。任务："+d.title+"。题目："+d.prompt+"。目标长度："+d.target_chars+"。评分/反馈标准："+rubric+"。\n\n我的原文：\n"+draft+"\n\n请按这个顺序回答：1) 先判断任务是否完成；2) 按 rubric 分项评分或定性评价（如果不是官方题，不要假装官方分数）；3) 逐句指出最影响真实表达的错误；4) 给更自然的韩语改写，但保留我的意思；5) 总结 3 个我下一篇必须主动练习的点；6) 给我一个 5 分钟重写任务。对 TOPIK 题，明确这是训练估分，不是官方成绩。";
+    sendFollowUp(prompt);
+  };
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderExam(d){
+  setHead(d,"官方结构校准 · 训练不冒充官方成绩");
+  const spec=d.official_format;
+  root.innerHTML="<div class='card'><div class='row'><div class='metric'><b>"+spec.minutes+" min</b>考试时间</div><div class='metric'><b>"+spec.total+"</b>总分</div><div class='metric'><b>"+(d.target_score??"—")+"</b>目标等级最低分</div></div></div>"+
+    "<div class='card'>"+spec.sections.map(x=>"<div class='row' style='padding:8px 0;border-bottom:1px solid var(--line)'><span class='grow'>"+esc(x[0])+"</span><b>"+esc(x[1])+" 题</b></div>").join("")+"</div>"+
+    "<div class='card soft'><div class='status'>"+esc(d.training_rule)+"</div><div class='row' style='margin-top:10px'><button class='primary' id='exam-quiz'>做一组练习</button><button id='exam-writing'>练写作</button><button id='exam-speaking'>练口语</button><button id='exam-official'>打开 TOPIK 官方站 ↗</button></div></div>";
+  document.getElementById("exam-quiz").onclick=()=>callTool("practice_topik_quiz",{level:d.target_level,index:0});
+  document.getElementById("exam-writing").onclick=()=>callTool("practice_korean_writing",{kind:d.format==="topik2_ibt"?"topik_ibt":"topik54_pbt",level:d.target_level});
+  document.getElementById("exam-speaking").onclick=()=>callTool("practice_real_world_korean",{scenario:"professor-meeting",level:d.target_level});
+  document.getElementById("exam-official").onclick=()=>openExternal(d.official_practice);
+  window.openai?.notifyIntrinsicHeight?.();
+}
+function renderSession(d){
+  setHead(d,"弱项优先 · 输入与输出都要有");
+  root.innerHTML="<div class='card'><div class='row'><div class='metric'><b>"+d.minutes+"</b>分钟</div><div class='metric'><b>TOPIK "+d.topik_target+"</b>目标</div><div class='metric'><b>"+esc(d.weak_skill)+"</b>本次重点</div></div></div>"+
+    "<div class='card'>"+d.blocks.map((b,i)=>"<div class='session-block'><div class='score'>"+b.minutes+"</div><div><b>"+esc(b.title)+"</b><div class='zh'>"+esc(b.task)+"</div></div><button data-block='"+i+"'>开始</button></div>").join("")+"</div>"+
+    "<div class='status'>"+esc(d.mastery_rule)+"</div>";
+  document.querySelectorAll("[data-block]").forEach(btn=>btn.onclick=()=>{
+    const b=d.blocks[Number(btn.dataset.block)];
+    if(b.kind==="drama")return callTool("practice_drama_shadowing",{theme:"translation"});
+    if(b.kind==="conversation")return callTool("practice_real_world_korean",{scenario:"agency-client",level:d.topik_target});
+    if(b.kind==="writing")return callTool("practice_korean_writing",{kind:"research_interest",level:d.topik_target});
+    if(b.kind==="exam")return callTool("practice_topik_quiz",{level:d.topik_target,index:0});
+    if(b.kind==="retrieval")return callTool("look_up_korean_term",{term:"설득커뮤니케이션"});
+    return sendFollowUp("给我一段与媒体、广告或传播相关、适合 TOPIK "+d.topik_target+" 水平的韩文短文。先让我独立读并概括主旨，不要立刻翻译；等我回答后再纠正。");
+  });
+  window.openai?.notifyIntrinsicHeight?.();
+}
+document.getElementById("fullscreen").onclick=async()=>{if(window.openai?.requestDisplayMode)await window.openai.requestDisplayMode({mode:"fullscreen"});};
+</script>
+</body>
+</html>

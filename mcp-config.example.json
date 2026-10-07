@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "korea-media-korean": {
-      "command": "python",
-      "args": ["mcp/server.py"]
-    }
-  }
-}
