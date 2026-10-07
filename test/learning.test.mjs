@@ -130,3 +130,26 @@ test("widget implements MCP Apps bridge, model follow-up, speech input, and prod
   assert.match(html, /speechSynthesis/);
   assert.match(html, /openExternal/);
 });
+
+test("public learner UI and Skill are generic and preserve honest learning limits", () => {
+  const site = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  const widget = readFileSync(new URL("../public/smart-learning.html", import.meta.url), "utf8");
+  const skill = readFileSync(new URL("../skills/korea-media-korean/SKILL.md", import.meta.url), "utf8");
+  const router = readFileSync(new URL("../assets/app-v3.js", import.meta.url), "utf8");
+  assert.match(site, /assets\/app-v3\.js/);
+  assert.match(site, /assets\/app-v3\.css/);
+  assert.match(site, /id="v3-query"/);
+  assert.match(site, /id="v3-studio"/);
+  assert.doesNotMatch(site, /Zachary 的|给 Zachary 的|为 Zachary 定制/);
+  assert.doesNotMatch(widget, /Zachary|Zack/);
+  assert.doesNotMatch(skill, /The learner is \*\*Zachary\*\*/);
+  assert.match(skill, /public learning product/i);
+  assert.match(router, /不(?:会假装|自动给写作打 AI 分数)/);
+  assert.match(router, /zacharyKoreanDone/); // Backward-compatible local progress key.
+});
+
+test("school comparison uses learner-neutral course fit notes", () => {
+  const result = comparePrograms({ degree: "master", focus: "advertising" });
+  assert.ok(result.items.every(x => x.fit_note && !Object.hasOwn(x,"zachary")));
+  assert.equal(result.items[0].id,"cau-adpr");
+});

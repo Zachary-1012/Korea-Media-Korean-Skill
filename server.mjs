@@ -93,11 +93,11 @@ function createLearningServer() {
   const server = new McpServer(
     {
       name: "korea-media-korean",
-      version: "1.0.0",
+      version: "1.1.0",
     },
     {
       instructions:
-        "Use these tools for Zachary's Korean study and SNU/CAU media, advertising, marketing and PR admissions. Use interactive UI when comparison, planning, practice, quiz, shadowing or interview interaction helps. For a simple factual question that does not need interaction, answer concisely without forcing UI.",
+        "Use these tools to support any learner studying Korean, TOPIK and SNU/CAU media, advertising, marketing or PR admissions. Adapt to the learner's chosen degree, topic and present ability; never assume a personal biography. Use interactive UI when comparison, planning, practice, quiz, shadowing or interview interaction helps. For a simple factual question that does not need interaction, answer concisely without forcing UI.",
     }
   );
 
@@ -417,7 +417,7 @@ const httpServer = createServer(async (req, res) => {
     res.end(JSON.stringify({
       ok: true,
       service: "korea-media-korean",
-      version: "1.0.0",
+      version: "1.1.0",
       mcp: MCP_PATH,
       ui: UI_URI,
       course: COURSE_URL,

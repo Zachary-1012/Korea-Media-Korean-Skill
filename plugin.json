@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "korea-media-korean",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Adaptive Korean learning for TOPIK, real-world conversation, Korean writing, and SNU/CAU media, advertising, marketing and PR admissions.",
   "author": {
     "name": "Zachary",
@@ -112,8 +112,7 @@
           ]
         },
         "commerce": false,
-        "commerce_description": "The plugin does not sell products, process payments, or provide checkout. Commercial reuse of the project's source and original materials is governed separately by its proprietary license.",
-        "demo_recording_url": "https://github.com/Zachary-1012/Korea-Media-Korean-Skill/releases/download/v1.0.0/korean-smart-ui-technical-walkthrough.webm"
+        "commerce_description": "The plugin does not sell products, process payments, or provide checkout. Commercial reuse of the project's source and original materials is governed separately by its proprietary license."
       },
       "publication": {
         "release_notes": "Initial public release with adaptive diagnostics, real-world Korean role-play, TOPIK exam modes, writing feedback, Smart Learning UI, SNU/CAU admissions preparation, and media/advertising professional Korean.",

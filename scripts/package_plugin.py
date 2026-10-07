@@ -38,7 +38,8 @@ for x in review["test_cases"]["positive"]:
 for x in review["test_cases"]["negative"]:
     for field in ("description","prompt"):
         ensure(bool(x.get(field)),field)
-ensure(review["demo_recording_url"].startswith("https://"),"video URL")
+if review.get("demo_recording_url"):
+    ensure(review["demo_recording_url"].startswith("https://"),"video URL")
 lic = (ROOT/"LICENSE").read_text(encoding="utf-8")
 ensure("All Rights Reserved" in lic and "commercial" in lic.lower(),"license terms")
 
@@ -71,7 +72,7 @@ for name in files:
 
 outdir=ROOT/"dist"
 outdir.mkdir(exist_ok=True)
-out=outdir/"Korean-Media-Study-v1.0.0.zip"
+out=outdir/f"Korean-Media-Study-v{plugin['version']}.zip"
 with ZipFile(out,"w",ZIP_DEFLATED,compresslevel=8) as z:
     for name in files:
         z.write(ROOT/name,arcname=name)

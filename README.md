@@ -1,6 +1,6 @@
 # Korea Media Korean Skill
 
-Zachary 的韩国媒体传播韩语学习与申请产品。
+面向大众的韩语学习与韩国大学申请训练产品。
 
 面向：
 - 首尔大学（SNU）传播 / 媒体相关方向
@@ -169,3 +169,35 @@ Copyright © 2026 Zachary. All Rights Reserved.
 学校规则会变化。真正申请时必须重新核对对应年份、学历层级和项目的 SNU / CAU 官方招生简章。
 
 本产品不能保证 TOPIK 通过或学校录取；它负责的是提高可验证的学习与申请准备能力。
+
+## V3 · Task-driven learning workspace
+
+Production learning UI is **not** the AI-generated promotional mockups.
+The actual interface now uses a compact navigation rail, typography-driven
+home screen, clearer course hierarchy and task-specific practice components.
+
+- Today: enter a concrete study goal and choose an appropriate workspace;
+- Course: browse 12 stages and progressively expand any of the original 48 lessons;
+- TOPIK: answer one item before explanations and retry on the next item;
+- Conversation: practice real Korean turns before seeing a reference response;
+- Writing: compose in an editor, preserve local drafts, then explicitly copy
+  into ChatGPT for AI feedback (website itself does not pretend to grade);
+- Vocabulary and drama: preserve original course content and public clip links;
+- About: admissions caveats, TTS/privacy disclosures, legal licensing.
+
+The standalone site routes common intents deterministically. It is **not** a
+model-driven UI compiler. In ChatGPT, MCP tool selection and the UI resource
+provide task-specific components; progressive content is backed by real tool
+results, not artificial model streaming or invented statuses.
+
+Public learner-facing UI is neutral: no owner name, biography, or fake
+personalized progress scores. Legacy browser lesson progress keys are preserved.
+The 48 lessons, 18 adapted drama scenes, 133 vocabulary cards and 64 phrases
+remain in the website.
+
+Product works independently from LUMENIS/序境; no LUMENIS source/runtime/deploy
+should be modified for this project.
+
+## 版本记录
+
+- [V1.1.0 产品升级](./CHANGELOG.md)：公众学习工作区、任务自适应 UI、真实练习路径和中性产品文案。

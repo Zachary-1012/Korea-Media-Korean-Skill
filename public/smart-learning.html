@@ -1,8 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Korean Smart Learning UI</title>
 <style>
 :root{color-scheme:light dark;--bg:#fff;--ink:#1f1f1f;--muted:#6b6b67;--line:#e7e7e2;--soft:#f5f5f2;--accent:#315d49;--accentSoft:#eaf3ee;--danger:#9a4848}
@@ -30,15 +31,66 @@ textarea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:
 @media(max-width:580px){body{padding:6px}.grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}.card{padding:12px}.big-ko{font-size:22px}}
 @media(prefers-color-scheme:dark){:root{--bg:#20201f;--ink:#f3f3f1;--muted:#aaa9a5;--line:#3a3a38;--soft:#2a2a28;--accent:#7fac92;--accentSoft:#26352d}.bar{background:#444}}
 </style>
-</head>
+<style id="smart-v3">
+:root{color-scheme:light;--bg:#fff;--ink:#222a25;--muted:#758078;--line:#e6ebe6;--soft:#f8faf8;--accent:#1e7859;--accentSoft:#edf6f0;--danger:#b54c42}
+body{font-size:14px;line-height:1.68;padding:0;background:#fff}
+.shell{max-width:760px;margin:auto}
+.head{background:radial-gradient(#e2e9e1 .6px,transparent .6px) 0 0/17px 17px,#fff;border-bottom:1px solid var(--line);padding:18px 17px 16px;margin:0 0 6px}
+.head .eyebrow{color:#277857;font-size:10px;letter-spacing:.08em}
+.head h1{font-size:clamp(20px,3vw,25px);letter-spacing:-.03em;font-weight:750;line-height:1.26}
+.sub{font-size:12px}
+#root{padding:0 14px}
+.card{border:0;border-bottom:1px solid var(--line);border-radius:0;background:#fff;margin:0;padding:17px 1px;box-shadow:none}
+.card.soft{background:#f8faf8;border:1px solid #edf1ec;border-radius:13px;padding:15px;margin:12px 0}
+.card h3{letter-spacing:-.01em}
+.grid{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
+.program{border-bottom:1px solid #e3e9e4;display:block}
+.program.recommended{background:#f5faf6;border-left:3px solid #4e9c71;border-bottom:1px solid #d9e6db;border-radius:11px;padding:16px;margin:10px 0}
+.program p{font-size:12px;line-height:1.72}
+.program h3{font-size:17px}
+.chip{background:#f4f6f3;border:0;color:#59665e;font-size:11px;padding:5px 9px;margin:3px 4px 3px 0}
+button{border-radius:10px;min-height:36px;font-weight:520;border-color:#dfe5df}
+button:hover{background:#f4f8f5}
+button.primary{background:#20352b;color:#fff;border-color:#20352b}
+button.primary:hover{background:#2a6248}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #2d8a62;outline-offset:3px}
+.row{gap:9px}.status,.zh{line-height:1.7}
+.big-ko{letter-spacing:-.03em}
+.timer{font-size:25px;font-weight:730}
+.field input,.field select,textarea{background:#fff;border:1px solid #dce4dc;border-radius:12px}
+textarea{min-height:165px}
+.footer{padding:12px 17px 22px;border-top:1px solid #eff1ee;color:#819087}
+.option{background:#fff;border:1px solid #dfe6df;margin:8px 0;padding:11px 13px}
+.option.correct{background:#ebf6ee;border-color:#78b08d}
+.option.wrong{background:#fff0ee;border-color:#e8a59d}
+.hint{background:#f5f9f5}
+[data-ui-kind="drama"] .card:first-child,
+[data-ui-kind="conversation"] .card:first-child{border-radius:12px}
+[data-ui-kind="drama"] .big-ko,[data-ui-kind="conversation"] .big-ko{color:#173c2a}
+@media(max-width:580px){
+ .head{padding:15px 12px}.head h1{font-size:21px}
+ #root{padding:0 10px}.grid{display:block}.formgrid{grid-template-columns:1fr 1fr}
+ .row>button{font-size:12px}
+}
+@media(prefers-color-scheme:dark){
+ :root{color-scheme:dark;--bg:#222823;--ink:#ebf2eb;--muted:#a7b2a8;--line:#3a493d;--soft:#28362e;--accent:#79c39b;--accentSoft:#2e4536;--danger:#ffbbb1}
+ body,.card,.head{background:#222823;color:#ebf2eb}
+ .head{background:radial-gradient(#38483a .6px,transparent .6px) 0 0/17px 17px,#222823}
+ .card.soft{background:#2b352d;border-color:#39483c}
+ .program.recommended{background:#2b3a2f;border-color:#62846a}
+ .chip{background:#304031;color:#c3d6c4}
+ button,.option,textarea,.field input,.field select{background:#2b362d;color:#ebf2eb;border-color:#475849}
+ button.primary{background:#d8e8dc;color:#14281c}
+}
+</style></head>
 <body>
 <main class="shell">
-  <div class="head">
-    <div><div class="eyebrow">SMART LEARNING UI</div><h1 id="title">韩国媒体传播韩语</h1><div class="sub" id="subtitle">等待学习任务…</div></div>
-    <button id="fullscreen" title="全屏">↗</button>
-  </div>
-  <div id="root"><div class="card soft">正在连接 ChatGPT 学习界面…</div></div>
-  <div class="footer">Zachary · SNU / CAU · Media / Advertising / Marketing / PR</div>
+<div class="head">
+<div><div class="eyebrow">SMART LEARNING UI</div><h1 id="title">韩国媒体传播韩语</h1><div class="sub" id="subtitle">等待学习任务…</div></div>
+<button id="fullscreen" title="全屏">↗</button>
+</div>
+<div id="root"><div class="card soft">正在连接 ChatGPT 学习界面…</div></div>
+<div class="footer">Korean Media Study · TOPIK · 真实韩语</div>
 </main>
 <script type="module">
 const root=document.getElementById("root");
@@ -50,11 +102,27 @@ const pending=new Map();
 const esc=(v)=>String(v??"").replace(/[&<>"']/g,(m)=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
 const rpcNotify=(method,params)=>window.parent.postMessage({jsonrpc:"2.0",method,params},"*");
 const rpcRequest=(method,params)=>new Promise((resolve,reject)=>{const id=++rpcId;pending.set(id,{resolve,reject});window.parent.postMessage({jsonrpc:"2.0",id,method,params},"*");});
-const bridgeReady=(async()=>{try{await rpcRequest("ui/initialize",{appInfo:{name:"korea-media-korean-smart-ui",version:"1.0.0"},appCapabilities:{},protocolVersion:"2026-01-26"});rpcNotify("ui/notifications/initialized",{});}catch(e){console.error(e);}})();
+const bridgeReady=(async()=>{try{await rpcRequest("ui/initialize",{appInfo:{name:"korea-media-korean-smart-ui",version:"1.1.0"},appCapabilities:{},protocolVersion:"2026-01-26"});rpcNotify("ui/notifications/initialized",{});}catch(e){console.error(e);}})();
 
 async function callTool(name,args){
-  if(window.openai?.callTool){const r=await window.openai.callTool(name,args);updateFrom(r);return r;}
-  await bridgeReady;const r=await rpcRequest("tools/call",{name,arguments:args});updateFrom(r);return r;
+  const last=document.activeElement;
+  const isButton=last instanceof HTMLButtonElement;
+  const label=isButton?last.textContent:"";
+  if(isButton){last.disabled=true;last.textContent="正在准备…";}
+  try{
+    let result;
+    if(window.openai?.callTool)result=await window.openai.callTool(name,args);
+    else{await bridgeReady;result=await rpcRequest("tools/call",{name,arguments:args});}
+    updateFrom(result);
+    return result;
+  }catch(error){
+    console.error(error);
+    const notice=document.createElement("p");
+    notice.className="status error";
+    notice.textContent="暂时无法取得下一步学习内容。请重试，或打开独立学习网站继续。";
+    root.appendChild(notice);
+    throw error;
+  }finally{if(isButton&&last.isConnected){last.disabled=false;last.textContent=label;}}
 }
 function speak(text,rate=.88){
   if(!("speechSynthesis" in window))return;
@@ -73,6 +141,11 @@ async function sendFollowUp(prompt){
   }catch(e){
     if(window.openai?.sendFollowUpMessage){await window.openai.sendFollowUpMessage({prompt:text,scrollToBottom:true});return;}
     console.error(e);
+    const message="当前 ChatGPT 宿主不支持直接发送。";
+    const notice=document.createElement("div");
+    notice.className="status error";
+    notice.textContent=message+" 请复制答案到 ChatGPT 对话继续。";
+    root.appendChild(notice);
   }
 }
 function startSpeechInto(textareaId,statusId){
@@ -116,6 +189,7 @@ function setHead(data,kicker){
 function render(data){
   if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
   const kind=data.ui_type;
+  document.body.dataset.uiKind=kind;
   if(kind==="compare")return renderCompare(data);
   if(kind==="plan")return renderPlan(data);
   if(kind==="interview")return renderInterview(data);
@@ -132,8 +206,8 @@ function render(data){
 }
 function renderCompare(d){
   setHead(d,d.degree+" · "+esc(d.focus||"media_marketing"));
-  let html="<div class='grid'>";
-  d.items.forEach((p)=>{const rec=p.id===d.recommendation;html+="<section class='card program "+(rec?"recommended":"")+"'>"+(rec?"<span class='chip'>优先匹配</span>":"")+"<span class='chip'>"+esc(p.style)+"</span><h3>"+esc(p.name)+"</h3><div class='zh'>"+esc(p.english)+"</div><p>"+esc(p.description)+"</p><p><b>与你的关系：</b>"+esc(p.zachary)+"</p><div>"+p.fit.map(x=>"<span class='chip'>"+esc(x)+"</span>").join("")+"</div></section>";});
+  let html="<p class='status'>按当前专业兴趣的课程相关性整理；不代表学校录取概率或官方推荐。</p><div class='grid'>";
+  d.items.forEach((p)=>{const rec=p.id===d.recommendation;html+="<section class='card program "+(rec?"recommended":"")+"'>"+(rec?"<span class='chip'>优先匹配</span>":"")+"<span class='chip'>"+esc(p.style)+"</span><h3>"+esc(p.name)+"</h3><div class='zh'>"+esc(p.english)+"</div><p>"+esc(p.description)+"</p><p><b>适合学习方向：</b>"+esc(p.fit_note)+"</p><div>"+p.fit.map(x=>"<span class='chip'>"+esc(x)+"</span>").join("")+"</div></section>";});
   html+="</div><div class='row'><button class='primary' id='go-interview'>直接练 CAU 面试</button><button id='go-plan'>生成申请韩语计划</button></div>";
   root.innerHTML=html;
   document.getElementById("go-interview").onclick=()=>callTool("practice_interview",{degree:"master",school:"CAU",major:"광고홍보학과",index:0});

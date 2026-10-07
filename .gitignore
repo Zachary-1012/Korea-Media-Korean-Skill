@@ -5,3 +5,4 @@ node_modules/
 .venv/
 dist/
 assets/review/
+test-results/
