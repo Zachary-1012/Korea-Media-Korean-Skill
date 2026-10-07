@@ -117,3 +117,28 @@ https://zachary-1012.github.io/Korea-Media-Korean-Skill/
 
 Repository:
 https://github.com/Zachary-1012/Korea-Media-Korean-Skill
+
+## Official clip study
+
+The public course contains an official-clip study room that embeds authorized
+Netflix / Netflix K-Content YouTube players. Treat the player audio as the
+original actor audio source for listening practice.
+
+Do not copy or republish full copyrighted drama audio or complete scripts into
+the repository. Non-commercial/free educational use does not automatically
+grant redistribution rights.
+
+For transcript/script practice, prefer:
+- short quotations where appropriate;
+- original/adapted teaching dialogues;
+- user-provided excerpts they are allowed to access;
+- the course's local-only transcript scratchpad, stored in browser localStorage.
+
+## Interface guidance
+
+Keep the learning surface visually quiet:
+- primary learning actions stay in the main flow;
+- explanatory/legal/admissions/TTS metadata belongs in About;
+- avoid dashboard/card-grid styling;
+- use progressive disclosure instead of permanent explanation blocks;
+- preserve a compact sidebar and readable central column.
