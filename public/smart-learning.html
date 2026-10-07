@@ -76,12 +76,17 @@ async function sendFollowUp(prompt){
   }
 }
 function startSpeechInto(textareaId,statusId){
+  const status=document.getElementById(statusId);
+  if(!window.confirm("语音识别可能由浏览器/系统供应商在线处理。只有同意后才启用麦克风；不愿使用可直接打字。是否继续？")){
+    if(status)status.textContent="未启用麦克风，可直接输入韩语。";
+    return;
+  }
   const Ctor=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!Ctor){const s=document.getElementById(statusId);if(s)s.textContent="当前浏览器没有可用的韩语语音识别，请直接输入。";return;}
+  if(!Ctor){if(status)status.textContent="当前浏览器没有可用的韩语语音识别，请直接输入。";return;}
   const rec=new Ctor();rec.lang="ko-KR";rec.interimResults=true;rec.continuous=false;
-  const ta=document.getElementById(textareaId),status=document.getElementById(statusId);
+  const ta=document.getElementById(textareaId);
   let finalText=ta.value?ta.value+" ":"";
-  rec.onstart=()=>{if(status)status.textContent="正在听…请用韩语回答。";};
+  rec.onstart=()=>{if(status)status.textContent="正在听…请用韩语回答。注意：转写文字不能替代发音/流利度评估。";};
   rec.onresult=(event)=>{
     let interim="",done="";
     for(let i=event.resultIndex;i<event.results.length;i++){const t=event.results[i][0].transcript;if(event.results[i].isFinal)done+=t;else interim+=t;}
@@ -184,14 +189,15 @@ function renderDiagnostic(d){
   root.innerHTML="<div class='status'>"+esc(d.note)+"</div>"+objective+
     "<section class='card'><div class='task-title'>写作诊断 · "+esc(d.writing.target)+"</div><div class='ko'>"+esc(d.writing.prompt)+"</div><textarea id='diag-writing' placeholder='在这里写韩文，不要求完美。'></textarea><div class='counter' id='diag-writing-count'>0 字符</div></section>"+
     "<section class='card'><div class='task-title'>口语诊断 · "+d.speaking.seconds+" 秒</div><div class='ko'>"+esc(d.speaking.prompt)+"</div><textarea id='diag-speaking' placeholder='可以直接输入，也可以用语音识别转写。'></textarea><div class='row'><button id='diag-mic'>🎤 韩语语音识别</button><span class='status' id='diag-mic-status'>语音识别可用性取决于当前浏览器。</span></div></section>"+
-    "<div class='row'><button class='primary' id='diag-submit'>提交给 ChatGPT 做完整诊断</button><button id='diag-session'>先按写作弱项开始今天训练</button></div>";
+    "<div class='row'><button class='primary' id='diag-submit'>提交给 ChatGPT 做完整诊断</button><button id='diag-session'>体验 45 分钟写作训练</button></div>";
   const answers={};
   document.querySelectorAll("[data-diag-speak]").forEach(b=>b.onclick=()=>speak(d.objective[Number(b.dataset.diagSpeak)].audio,.82));
   document.querySelectorAll(".diag-opt").forEach(b=>b.onclick=()=>{
     const qi=Number(b.dataset.q),oi=Number(b.dataset.o);answers[qi]=oi;
-    document.querySelectorAll("[data-q='"+qi+"']").forEach(x=>{x.classList.remove("correct","wrong");});
-    b.classList.add(oi===d.objective[qi].answer?"correct":"wrong");
-    document.querySelector("[data-q='"+qi+"'][data-o='"+d.objective[qi].answer+"']").classList.add("correct");
+    document.querySelectorAll("[data-q='"+qi+"']").forEach(x=>{x.style.background="";x.setAttribute("aria-pressed","false");});
+    b.style.background="var(--accentSoft)";
+    b.setAttribute("aria-pressed","true");
+    // Diagnostic deliberately withholds the answer until the learner submits.
   });
   const wt=document.getElementById("diag-writing");wt.oninput=()=>document.getElementById("diag-writing-count").textContent=wt.value.length+" 字符";
   document.getElementById("diag-mic").onclick=()=>startSpeechInto("diag-speaking","diag-mic-status");

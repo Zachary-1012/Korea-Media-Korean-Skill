@@ -96,6 +96,17 @@ MCP Apps UI 会根据任务自动切换：
 
 公开仓库不托管韩剧完整音轨或完整正式剧本。
 
+## ChatGPT / Codex 插件
+
+- 公共在线课程：<https://zachary-1012.github.io/Korea-Media-Korean-Skill/>
+- 远程 MCP：<https://korea-media-korean-mcp-production.up.railway.app/mcp>
+- 插件发布包：从本仓库 GitHub Releases 下载最新的 Korean-Media-Study ZIP
+- 安装、审核、域名验证与更新说明：[PUBLISHING.md](./PUBLISHING.md)
+- 审核测试与界面证明：[REVIEW-HANDOFF.md](./REVIEW-HANDOFF.md)
+- 可编辑 Figma 视觉稿：<https://www.figma.com/design/MeSjqKj6w2VHkGia3w4LEt>
+
+公开 GitHub Pages 可独立使用。ChatGPT 公共目录需要先完成 OpenAI 开发者身份、域名验证、审核和发布；插件 ZIP 及公网 MCP 上线不等于已上架目录。
+
 ## MCP
 
 远程 MCP 使用 Node + 官方 MCP SDK + MCP Apps UI。

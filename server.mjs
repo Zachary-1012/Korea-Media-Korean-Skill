@@ -41,6 +41,9 @@ const readOnlyAnnotations = {
 function resourceMeta() {
   const ui = {
     prefersBorder: false,
+    permissions: {
+      microphone: {},
+    },
     csp: {
       connectDomains: [],
       resourceDomains: [],

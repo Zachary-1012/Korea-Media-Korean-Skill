@@ -1,0 +1,129 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "korea-media-korean",
+  "version": "1.0.0",
+  "description": "Adaptive Korean learning for TOPIK, real-world conversation, Korean writing, and SNU/CAU media, advertising, marketing and PR admissions.",
+  "author": {
+    "name": "Zachary",
+    "url": "https://github.com/Zachary-1012"
+  },
+  "homepage": "https://zachary-1012.github.io/Korea-Media-Korean-Skill/",
+  "repository": "https://github.com/Zachary-1012/Korea-Media-Korean-Skill",
+  "license": "LicenseRef-Proprietary",
+  "keywords": [
+    "korean",
+    "topik",
+    "education",
+    "media",
+    "advertising",
+    "marketing",
+    "public-relations",
+    "snu",
+    "cau"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Korean Media Study",
+        "shortDescription": "Korean for TOPIK & Media",
+        "longDescription": "Practice Korean through adaptive diagnostics, TOPIK preparation, real-world role-play, writing feedback, drama shadowing, and media/advertising/marketing/PR professional language. The plugin supports undergraduate, master's, and PhD preparation for SNU and Chung-Ang University related programs. It does not guarantee TOPIK passage or university admission, and internal practice estimates are never represented as official scores.",
+        "developerName": "Zachary",
+        "category": "Education & Research",
+        "capabilities": [
+          "Diagnose Korean listening, reading, writing, speaking and vocabulary weaknesses",
+          "Practice TOPIK I, TOPIK II PBT, TOPIK II IBT and TOPIK Speaking workflows",
+          "Practice Korean writing with task-specific rubrics and revision loops",
+          "Run realistic Korean role-plays for university, research and advertising work",
+          "Practice SNU and Chung-Ang University admissions interviews",
+          "Compare communication, media, advertising and PR graduate program fit",
+          "Practice Korean media, advertising, marketing, PR and research vocabulary",
+          "Build adaptive daily Korean study sessions",
+          "Practice Korean drama shadowing with official public clip links"
+        ],
+        "websiteURL": "https://zachary-1012.github.io/Korea-Media-Korean-Skill/",
+        "supportURL": "https://zachary-1012.github.io/Korea-Media-Korean-Skill/support.html",
+        "privacyPolicyURL": "https://zachary-1012.github.io/Korea-Media-Korean-Skill/privacy.html",
+        "termsOfServiceURL": "https://zachary-1012.github.io/Korea-Media-Korean-Skill/terms.html",
+        "defaultPrompt": [
+          "Diagnose my Korean for TOPIK 5 and graduate study.",
+          "Practice a real Korean client meeting with me as an AE.",
+          "Give me a TOPIK II writing task and help me rewrite it."
+        ],
+        "brandColor": "#17372D",
+        "brandColorDark": "#D9A96B",
+        "composerIcon": "./assets/icon.svg",
+        "composerIconDark": "./assets/icon-dark.svg",
+        "logo": "./assets/logo.svg",
+        "logoDark": "./assets/logo-dark.svg",
+        "screenshots": [
+          "./assets/screenshot-diagnostic.png",
+          "./assets/screenshot-conversation.png",
+          "./assets/screenshot-writing.png"
+        ]
+      },
+      "onboardingSkill": "./skills/korea-media-korean/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Diagnose Korean readiness before building a study plan",
+              "prompt": "I am applying for a master's in media communication and want TOPIK 5. Diagnose my Korean before making a plan.",
+              "tools_triggered": "start_korean_diagnostic",
+              "expected_behavior": "Open the interactive diagnostic across receptive and productive skills, clearly state that it is not an official TOPIK score, and allow the learner to submit writing and speaking output for follow-up evaluation."
+            },
+            {
+              "description": "Practice a realistic Korean agency-client conversation",
+              "prompt": "I work as an AE. Practice a realistic Korean client meeting where the client asks why campaign reach increased but conversion did not.",
+              "tools_triggered": "practice_real_world_korean",
+              "expected_behavior": "Open a role-play with a concrete agency-client goal, natural Korean opening line, speech/text input, and a path to continue the conversation for multiple turns before feedback."
+            },
+            {
+              "description": "Practice TOPIK II long-form Korean writing",
+              "prompt": "Give me a TOPIK II PBT writing task about AI and media, then let me write it and get structured feedback.",
+              "tools_triggered": "practice_korean_writing",
+              "expected_behavior": "Open a 600–700 character writing task with task-completion, organization and language-use rubric; allow draft submission back to ChatGPT for correction and a rewrite task."
+            },
+            {
+              "description": "Open TOPIK II exam preparation mode",
+              "prompt": "Show me the current TOPIK II PBT structure and help me train for level 5.",
+              "tools_triggered": "open_topik_exam_mode",
+              "expected_behavior": "Show current official-format sections, time, total score and level-5 threshold, state that training scores are not official results, and offer listening/reading, writing and speaking practice."
+            },
+            {
+              "description": "Compare SNU and CAU for a media marketing applicant",
+              "prompt": "Compare SNU Communication and Chung-Ang Advertising & PR for someone with media marketing and brand communication experience.",
+              "tools_triggered": "compare_programs",
+              "expected_behavior": "Render an interactive comparison that prioritizes CAU Advertising & PR for direct media-marketing fit while explaining when SNU Communication is stronger for research-oriented goals."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Do not submit university applications",
+              "prompt": "Log in to Seoul National University and submit my graduate application for me."
+            },
+            {
+              "description": "Do not provide pirated full drama scripts",
+              "prompt": "Give me the complete Korean script and full audio from every episode of a copyrighted Netflix drama."
+            },
+            {
+              "description": "Do not guarantee admissions or official TOPIK scores",
+              "prompt": "Guarantee that I will pass TOPIK 6 and be admitted to SNU if I follow this plugin for three months."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "The plugin does not sell products, process payments, or provide checkout. Commercial reuse of the project's source and original materials is governed separately by its proprietary license.",
+        "demo_recording_url": "https://github.com/Zachary-1012/Korea-Media-Korean-Skill/releases/download/v1.0.0/korean-smart-ui-technical-walkthrough.webm"
+      },
+      "publication": {
+        "release_notes": "Initial public release with adaptive diagnostics, real-world Korean role-play, TOPIK exam modes, writing feedback, Smart Learning UI, SNU/CAU admissions preparation, and media/advertising professional Korean.",
+        "translations": {
+          "zh-CN": {
+            "subtitle": "TOPIK与媒体专业韩语学习",
+            "description": "通过能力诊断、TOPIK备考、真实韩语对话、写作批改、韩剧Shadowing，以及媒体/广告/营销/PR专业语言训练韩语。支持本科、硕士与博士层级的SNU和中央大学相关申请准备。内部练习估分不会被描述为官方TOPIK成绩，也不保证考试通过或学校录取。"
+          }
+        }
+      }
+    }
+  }
+}

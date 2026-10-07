@@ -7,14 +7,18 @@
   "scripts": {
     "start": "node server.mjs",
     "test": "node --test test/*.test.mjs",
-    "check": "node --check server.mjs && node --test test/*.test.mjs"
+    "check": "node --check server.mjs && node --test test/*.test.mjs",
+    "test:browser": "node test/browser-e2e.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.20.2",
     "@modelcontextprotocol/ext-apps": "^1.0.1",
+    "@modelcontextprotocol/sdk": "^1.20.2",
     "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
   }
 }

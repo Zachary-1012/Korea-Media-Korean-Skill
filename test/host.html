@@ -1,0 +1,64 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Local MCP Apps Host Simulator</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#fff;font-family:system-ui,sans-serif}
+#banner{font-size:11px;background:#f2f2ee;color:#5a5a57;padding:6px 12px;height:30px}
+#ui{border:0;width:100%;height:760px;display:block}
+#messages{display:none}
+</style></head><body><div id="banner">MCP Apps host simulator · browser E2E (not ChatGPT)</div>
+<iframe id="ui" title="Smart Korean Learning UI" src="/widget"></iframe><div id="messages"></div>
+<script>
+const iframe=document.getElementById("ui");
+const mode=new URLSearchParams(location.search).get("mode")||"compare";
+const sessions=[];
+const modes={
+ compare:["compare_programs",{degree:"master",focus:"media marketing advertising PR"}],
+ writing:["practice_korean_writing",{kind:"topik54_pbt",level:5}],
+ conversation:["practice_real_world_korean",{scenario:"agency-client",level:5}],
+ diagnostic:["start_korean_diagnostic",{degree:"master",target_level:5}],
+ exam:["open_topik_exam_mode",{format:"topik2_pbt",target_level:5}],
+ plan:["build_study_plan",{degree:"master",months:9,hours_per_week:12,topik_target:5}],
+ vocab:["look_up_korean_term",{term:"설득커뮤니케이션"}],
+ drama:["practice_drama_shadowing",{theme:"translation"}],
+};
+window.__hostMessages=sessions;
+window.__hostCalls=[];
+window.__hostReady=false;
+function respond(id,result,error){
+ iframe.contentWindow.postMessage(error?{jsonrpc:"2.0",id,error}:{jsonrpc:"2.0",id,result},"*");
+}
+async function invoke(name,args){
+ const r=await fetch("/call",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({name,args})});
+ const data=await r.json();
+ if(!r.ok)throw new Error(data.error||"call failed");
+ window.__hostCalls.push({name,args});
+ return data;
+}
+window.addEventListener("message",async (event)=>{
+ if(event.source!==iframe.contentWindow)return;
+ const m=event.data;
+ if(!m||m.jsonrpc!=="2.0")return;
+ if(m.method==="ui/initialize"){
+   respond(m.id,{protocolVersion:"2026-01-26",hostInfo:{name:"local-ui-test-host",version:"1.0"},hostCapabilities:{message:{text:{}},serverTools:{}}});
+   return;
+ }
+ if(m.method==="ui/notifications/initialized"){
+   window.__hostReady=true;
+   try{
+     const wanted=Object.hasOwn(modes,mode)?modes[mode]:modes.compare;
+     const result=await invoke(wanted[0],wanted[1]);
+     iframe.contentWindow.postMessage({jsonrpc:"2.0",method:"ui/notifications/tool-result",params:result},"*");
+   }catch(e){console.error("init:",e);}
+   return;
+ }
+ if(m.method==="tools/call"){
+   try{respond(m.id,await invoke(m.params.name,m.params.arguments||{}));}catch(e){respond(m.id,null,{code:-32000,message:e.message});}
+   return;
+ }
+ if(m.method==="ui/message"){
+   sessions.push(m.params);
+   document.getElementById("messages").textContent=JSON.stringify(sessions);
+   respond(m.id,{});
+   return;
+ }
+ if(m.method==="ui/request-display-mode"){respond(m.id,{mode:m.params.mode});return;}
+});
+</script></body></html>
