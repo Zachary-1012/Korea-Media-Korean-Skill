@@ -1,0 +1,33 @@
+{
+  "original": 5000,
+  "unique": 4704,
+  "excluded": 21,
+  "duplicateOrVariants": 275,
+  "englishLikeGlosses": 1379,
+  "exampleRows": 4612,
+  "strippedGenericExamples": 98,
+  "bytes": 622093,
+  "license": "CC BY 4.0",
+  "first": [
+    [
+      "사랑",
+      "爱",
+      "Sarang",
+      "나는 너를 사랑해.",
+      "情感",
+      "初级",
+      0,
+      "愛"
+    ],
+    [
+      "감사합니다",
+      "感谢",
+      "Gamsahamnida",
+      "도와주셔서 감사합니다.",
+      "问候",
+      "初级",
+      0,
+      "感謝"
+    ]
+  ]
+}

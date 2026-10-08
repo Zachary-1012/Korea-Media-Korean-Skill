@@ -1,0 +1,533 @@
+{
+  "kind": "browser_DOM_controls_simulated_not_real_language_skills",
+  "started": "2026-10-08T20:15:35.776Z",
+  "expected": 52,
+  "completed": [
+    {
+      "id": "H01",
+      "level": "A0",
+      "words": 12,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "H02",
+      "level": "A0",
+      "words": 12,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "H03",
+      "level": "A0",
+      "words": 14,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "H04",
+      "level": "A0",
+      "words": 14,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A101",
+      "level": "A1",
+      "words": 14,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A102",
+      "level": "A1",
+      "words": 17,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A103",
+      "level": "A1",
+      "words": 17,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A104",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A105",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A106",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A107",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A108",
+      "level": "A1",
+      "words": 20,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A109",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A110",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A111",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A112",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A113",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A114",
+      "level": "A1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A115",
+      "level": "A1",
+      "words": 17,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A116",
+      "level": "A1",
+      "words": 17,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A201",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A202",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A203",
+      "level": "A2",
+      "words": 19,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A204",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A205",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A206",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A207",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A208",
+      "level": "A2",
+      "words": 19,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A209",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A210",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A211",
+      "level": "A2",
+      "words": 17,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A212",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A213",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "A214",
+      "level": "A2",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B101",
+      "level": "B1",
+      "words": 16,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B102",
+      "level": "B1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B103",
+      "level": "B1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B104",
+      "level": "B1",
+      "words": 17,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B105",
+      "level": "B1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B106",
+      "level": "B1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B107",
+      "level": "B1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B108",
+      "level": "B1",
+      "words": 18,
+      "dialogs": 3,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B201",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B202",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B203",
+      "level": "B2",
+      "words": 19,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B204",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B205",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B206",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B207",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B208",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B209",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 4,
+      "recall": 5,
+      "turns": 3,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    },
+    {
+      "id": "B210",
+      "level": "B2",
+      "words": 18,
+      "dialogs": 5,
+      "recall": 5,
+      "turns": 5,
+      "simulatedBrowserFlow": "PASS",
+      "learnerOutcome": "NOT VERIFIED"
+    }
+  ],
+  "failures": [],
+  "proof": {
+    "savedPractice": 52
+  },
+  "ended": "2026-10-08T20:15:38.978Z",
+  "browserPageErrors": []
+}

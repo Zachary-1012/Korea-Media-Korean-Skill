@@ -79,6 +79,8 @@ function renderHome(){
  '<div class="ec-actions"><button class="ec-secondary" data-ec="feedback">记录交流反馈 / 获取教师批改提示词</button>'+
  '<button class="ec-secondary" data-ec="records">复盘本机学习证据</button>'+
  '<button class="ec-secondary" data-ec="revisions">根据反馈重说 / 重写</button>'+
+ '<button class="ec-secondary" data-ec="wordbank">扩展生词学习与复习</button>'+
+ '<button class="ec-secondary" data-ec="culture">韩国礼仪情境与敬语</button>'+
  '<button class="ec-secondary" data-ec="privacy">备份、恢复及清除进度</button></div>'+
  '<div class="ec-time"><label for="ec-minutes">每日计划：</label><select id="ec-minutes"><option value="10" '+(evidence.dailyMinutes===10?"selected":"")+
  '>10 分钟</option><option value="20" '+(evidence.dailyMinutes===20?"selected":"")+
@@ -268,7 +270,8 @@ function renderPrivacy(){
 function downloadBackup(){
  const includePrivate=Boolean(el("ec-private")?.checked);
  const data={app:"Korean Media Study",schema:1,exportedAt:new Date().toISOString(),
-  study:safeStudy(get(STORE_KEY,emptyStudy())),evidence:safeEvidence(get(EVIDENCE_KEY,emptyEvidence()))};
+  study:safeStudy(get(STORE_KEY,emptyStudy())),evidence:safeEvidence(get(EVIDENCE_KEY,emptyEvidence())),
+  wordbank:get("kmsExtendedVocabularyV1",{saved:{}}),etiquette:get("kmsKoreanEtiquetteV1",{})};
  if(includePrivate)data.legacy={drafts:get("koreanMediaSiteWritingDrafts",{}),
    degree:localStorage.getItem("zacharyKoreanDegree")||"",
    transcript:localStorage.getItem("zacharyPrivateKoreanTranscript")||"",
@@ -292,6 +295,10 @@ async function restoreFile(file){
  try{
   localStorage.setItem(STORE_KEY,JSON.stringify(st));
   localStorage.setItem(EVIDENCE_KEY,JSON.stringify(ed));
+  if(contents.wordbank&&typeof contents.wordbank==="object"&&!Array.isArray(contents.wordbank)&&contents.wordbank.saved&&typeof contents.wordbank.saved==="object")
+   localStorage.setItem("kmsExtendedVocabularyV1",JSON.stringify(contents.wordbank));
+  if(contents.etiquette&&typeof contents.etiquette==="object"&&!Array.isArray(contents.etiquette))
+   localStorage.setItem("kmsKoreanEtiquetteV1",JSON.stringify(contents.etiquette));
   if(contents.legacy){
    const old=contents.legacy;
    if(old.drafts&&typeof old.drafts==="object"&&!Array.isArray(old.drafts))
@@ -358,6 +365,8 @@ root.addEventListener("click",event=>{
  if(a==="placement")return initialPlacement();
  if(a==="records")return openScreen("records");
  if(a==="feedback")return openScreen("feedback");
+ if(a==="wordbank"){document.dispatchEvent(new Event("kms:wordbank-request"));return;}
+ if(a==="culture"){document.dispatchEvent(new Event("kms:culture-request"));return;}
  if(a==="revisions")return openScreen("revisions");
  if(a==="privacy")return openScreen("privacy");
  if(a==="backup")return downloadBackup();

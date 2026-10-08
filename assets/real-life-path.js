@@ -48,7 +48,7 @@ function renderOverview(){
  const summary='<div class="rl-metrics"><span><b>'+n.completed+'</b> / '+KOREAN_COUNTS.units+' 单元自评通过</span><span><b>'+n.due+'</b> 个待复习</span><span><b>'+KOREAN_COUNTS.uniqueWords+'</b> 个去重生活词条</span></div>'+
  '<div class="rl-main-actions"><button class="rl-primary" data-rl="resume">开始：'+esc(suggested.title)+' →</button>'+
  '<button class="rl-outline" data-rl="review">复习到期词汇'+(n.due?"（"+n.due+"）":"")+'</button>'+
- '<button class="rl-outline" data-rl="dictionary">生活词库</button><button class="rl-outline" data-rl="coach">诊断 · 复测 · 纠错记录</button></div>';
+ '<button class="rl-outline" data-rl="dictionary">生活词库</button><button class="rl-outline" data-rl="coach">诊断 · 复测 · 纠错记录</button><button class="rl-outline" data-rl="culture">韩国生活礼仪</button><button class="rl-outline" data-rl="wordbank">扩展生活词库</button></div>';
  const levels=KOREAN_LEVELS.map(l=>{
  const us=KOREAN_UNITS.filter(u=>u.level===l.id);
  const count=us.filter(u=>state.units[u.id]?.passed).length;
@@ -315,6 +315,8 @@ root.addEventListener("click",ev=>{
  }
  const action=target.dataset.rl;if(!action)return;
  if(action==="coach"){document.dispatchEvent(new Event("kms:coach-request"));return;}
+ if(action==="culture"){document.dispatchEvent(new Event("kms:culture-request"));return;}
+ if(action==="wordbank"){document.dispatchEvent(new Event("kms:wordbank-request"));return;}
  if(action==="overview")return navigate("overview");
  if(action==="lesson")return navigate("lesson");
  if(action==="dictionary")return navigate("dictionary");

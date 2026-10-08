@@ -76,7 +76,7 @@ body{background:var(--bg);color:var(--ink);line-height:1.62}
 .about-section{padding:16px 0;border-bottom:1px solid var(--line)}.about-section h3{font-size:14px;margin:0 0 7px}.about-section p,.about-section li{font-size:13px;color:#555}.about-sources a{display:block;padding:6px 0;font-size:12px}
 @media(max-width:980px){.layout{grid-template-columns:1fr}.side{height:auto;position:relative;border-right:0;border-bottom:1px solid var(--line)}.topbar{top:0}.clip-item{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.hero{padding:36px 17px 28px}.content{padding:20px 16px 65px}.topbar{padding:0 12px}.phrase-grid,.vocab-grid{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.cols .card+ .card{padding-left:0;border-left:0;border-top:1px solid var(--line)}.route{display:flex;overflow:auto}.route div{min-width:112px}}
-</style><link href="assets/app-v3.css" rel="stylesheet"/><link href="assets/real-life-path.css" rel="stylesheet"/><link href="assets/education-coach.css" rel="stylesheet"/></head>
+</style><link href="assets/app-v3.css" rel="stylesheet"/><link href="assets/real-life-path.css" rel="stylesheet"/><link href="assets/education-coach.css" rel="stylesheet"/><link href="assets/culture-vocab.css" rel="stylesheet"/></head>
 <body>
 <div class="layout">
 <aside class="side">
@@ -86,6 +86,8 @@ body{background:var(--bg);color:var(--ink);line-height:1.62}
 <button data-v3-nav="today" type="button"><span>⌂</span>今天</button>
 <button data-v3-nav="journey" type="button"><span>한</span>零基础到交流</button>
 <button data-v3-nav="coach" type="button"><span>◎</span>诊断 / 复测 / 反馈</button>
+<button data-v3-nav="wordbank" type="button"><span>字</span>韩语扩展词库</button>
+<button data-v3-nav="culture" type="button"><span>礼</span>韩国文化与礼仪</button>
 <button data-v3-nav="course" type="button"><span>▤</span>48 节课程</button>
 <button data-v3-nav="topik" type="button"><span>◎</span>TOPIK 训练</button>
 <button data-v3-nav="conversation" type="button"><span>◌</span>真实对话</button>
@@ -120,6 +122,8 @@ body{background:var(--bg);color:var(--ink);line-height:1.62}
 <div class="v3-intent-chips">
 <button data-v3-action="coach" type="button">先做能力诊断</button>
 <button data-v3-action="journey" type="button">从零开始·52 单元</button>
+<button data-v3-action="wordbank" type="button">扩展韩语词库</button>
+<button data-v3-action="culture" type="button">敬语与韩国礼仪</button>
 <button data-v3-chip="我想练 TOPIK" type="button">TOPIK 备考</button>
 <button data-v3-chip="我想练真实对话" type="button">练习开口</button>
 <button data-v3-chip="我想写韩语作文" type="button">写作批改</button>
@@ -139,13 +143,15 @@ body{background:var(--bg);color:var(--ink);line-height:1.62}
 </div>
 <div aria-label="其他学习方式" class="v3-sections">
 <button data-v3-action="journey" type="button">从零开始的完整韩语学习路线 <span>→</span></button>
+<button data-v3-action="wordbank" type="button">数千条扩展韩语词汇与个人复习 <span>→</span></button>
+<button data-v3-action="culture" type="button">韩语敬语与韩国生活礼仪训练 <span>→</span></button>
 <button data-v3-action="conversation" type="button">在真实场景中说韩语 <span>→</span></button>
 <button data-v3-action="writing" type="button">写一段韩语，完成表达 <span>→</span></button>
 <button data-v3-action="originals" type="button">用官方韩剧原片练听力 <span>→</span></button>
 </div>
 <p class="v3-status" id="v3-count"></p>
 <p class="v3-status">本站提供真实课程、练习与本地草稿；需要开放式 AI 对话和写作批改时，请使用已连接的 ChatGPT 版本。</p>
-</section><section id="real-life-path" aria-label="零基础到实际交流的学习路径"></section><section id="education-coach" aria-label="韩语教育学习证据、诊断与复测"></section><nav aria-label="课程阶段" class="v3-module-bar" id="v3-outline"></nav><section aria-label="学习工作区" class="v3-smart-area" id="v3-studio">
+</section><section id="real-life-path" aria-label="零基础到实际交流的学习路径"></section><section id="education-coach" aria-label="韩语教育学习证据、诊断与复测"></section><section id="korean-culture" aria-label="韩语敬语与文化礼仪情景教学"></section><section id="expanded-vocabulary" aria-label="扩展韩语词库及间隔复习"></section><nav aria-label="课程阶段" class="v3-module-bar" id="v3-outline"></nav><section aria-label="学习工作区" class="v3-smart-area" id="v3-studio">
 <div class="v3-heading" id="v3-studio-kicker">SMART LEARNING</div>
 <h2 id="v3-studio-heading">开始学习</h2>
 <div aria-live="polite" id="v3-studio-body"></div>
@@ -1035,7 +1041,7 @@ document.getElementById('topik-sim').onclick=()=>{
 <a href="https://admission.snu.ac.kr/international/undergraduate/fall/guide" target="_blank">SNU · International Undergraduate Admissions</a>
 <a href="https://oia.cau.ac.kr/cauoie/under/notice.do" target="_blank">CAU · International Undergraduate Notices</a>
 <a href="https://en.snu.ac.kr/admission/overview/notice?bbsidx=164707&amp;md=v" target="_blank">SNU 2026 Fall International Graduate Admissions</a><a href="https://communication.snu.ac.kr/%EB%8C%80%ED%95%99%EC%9B%90/%EC%9E%85%ED%95%99%EC%95%88%EB%82%B4/" target="_blank">SNU Department of Communication · Admissions</a><a href="https://communication.snu.ac.kr/en/program/undergraduate/" target="_blank">SNU Department of Communication · Curriculum</a><a href="https://oia.cau.ac.kr/_attach/gradcau/file/2026/05/bMmpXWnhSuoiEphiZOxRNXRplb.pdf" target="_blank">CAU Fall 2026 Graduate International Guide</a><a href="https://graduate.cau.ac.kr/graduate/department/advertisement/advertising-and-public.do" target="_blank">CAU Advertising &amp; PR · Overview</a><a href="https://graduate.cau.ac.kr/graduate/department/advertisement/curriculum.do" target="_blank">CAU Advertising &amp; PR · Curriculum</a><a href="https://graduate.cau.ac.kr/graduate/department/media/media-communication.do" target="_blank">CAU Media &amp; Communication · Overview</a><a href="https://graduate.cau.ac.kr/graduate/department/media/curriculum.do" target="_blank">CAU Media &amp; Communication · Curriculum</a><a href="https://www.netflix.com/tudum/articles/when-life-gives-you-tangerines-release-date-news" target="_blank">Netflix Tudum · When Life Gives You Tangerines (2025)</a><a href="https://www.netflix.com/tudum/articles/resident-playbook-release-date-news" target="_blank">Netflix Tudum · Resident Playbook (2025)</a><a href="https://www.netflix.com/tudum/articles/weak-hero-class-2-release-date-news" target="_blank">Netflix Tudum · Weak Hero Class 2 (2025)</a><a href="https://www.netflix.com/tudum/articles/can-this-love-be-translated-release-date-news" target="_blank">Netflix Tudum · Can This Love Be Translated? (2026)</a><a href="https://www.netflix.com/tudum/articles/boyfriend-on-demand-release-date-news" target="_blank">Netflix Tudum · Boyfriend on Demand (2026)</a></div></div>
-<div class="about-section"><h3>隐私与本地数据</h3><p>学习进度、申请层级和私有字幕练习盒保存在浏览器 localStorage。公开 GitHub Pages 不需要账号，也不会自动上传你贴入练习盒的文本。</p></div><div class="about-section"><h3>使用与商业授权</h3>
+<div class="about-section"><h3>隐私与本地数据</h3><p>学习进度、申请层级和私有字幕练习盒保存在浏览器 localStorage。公开 GitHub Pages 不需要账号，也不会自动上传你贴入练习盒的文本。</p></div><div class="about-section"><h3>非商业使用与第三方词库</h3><p>Korean Media Study 免费面向大众提供非商业语言学习，不提供付费培训。扩展词库含独立许可的 Koko AI 数据（CC BY 4.0，必须署名）；项目原创内容与第三方内容的版权要求分开遵守。部分社区词义和例句未经母语教师审校，不能充当官方词典。</p><p><a href="https://github.com/Zachary-1012/Korea-Media-Korean-Skill/blob/main/NONCOMMERCIAL-SOURCES.md" target="_blank">查看扩展词库来源与许可说明</a></p></div><div class="about-section"><h3>使用与商业授权</h3>
 <p>这套学习产品可以由个人用户通过官方托管页面免费学习，但公开访问不等于开源授权。</p>
 <p><strong>未经版权所有者事先书面授权，不得复制、修改、再发布、重新托管、翻译、重新包装，或将源码、Smart Learning UI、MCP 工具、Skill、课程结构及原创教学材料用于商业、企业、培训、咨询、Agency 客户交付、SaaS、订阅、白标、捆绑或转售。</strong></p>
 <p><a href="https://github.com/Zachary-1012/Korea-Media-Korean-Skill/blob/main/LICENSE" target="_blank">查看完整 LICENSE</a> · <a href="https://github.com/Zachary-1012/Korea-Media-Korean-Skill/blob/main/COMMERCIAL-LICENSE.md" target="_blank">商业授权说明</a></p></div></aside></div><script id="visual-v2-js">
@@ -1076,4 +1082,4 @@ document.addEventListener('click',e=>{
 <button data-v3-nav="topik" type="button"><span>◎</span>TOPIK</button>
 <button data-v3-nav="conversation" type="button"><span>◌</span>对话</button>
 <button data-v3-nav="writing" type="button"><span>✎</span>写作</button>
-</nav><script defer="True" src="assets/app-v3.js"></script><script type="module" src="assets/real-life-path.js"></script><script type="module" src="assets/education-coach.js"></script></body></html>
+</nav><script defer="True" src="assets/app-v3.js"></script><script type="module" src="assets/real-life-path.js"></script><script type="module" src="assets/education-coach.js"></script><script type="module" src="assets/korean-culture.js"></script><script type="module" src="assets/extended-wordbank.js"></script></body></html>

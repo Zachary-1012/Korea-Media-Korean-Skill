@@ -58,6 +58,8 @@ function setView(view,opts={}){
  if(v==="today")renderProgress();
  if(v==="journey")document.dispatchEvent(new Event("kms:journey-open"));
  if(v==="coach")document.dispatchEvent(new Event("kms:coach-open"));
+ if(v==="culture")document.dispatchEvent(new Event("kms:culture-open"));
+ if(v==="wordbank")document.dispatchEvent(new Event("kms:wordbank-open"));
  if(!opts.silent){
    history.replaceState(null,"","#/"+(v==="course"?v+"/"+activeModule:v));
    scrollTop();
@@ -199,6 +201,8 @@ function renderVocabCard(query){
 function intent(q){
  const str=String(q||"").trim();
  if(!str)return setView("today");
+ if(/韩国礼仪|敬语|韩国文化|餐桌礼仪|职场称呼|交际礼仪|半语/i.test(str))return setView("culture");
+ if(/扩展词库|全部词汇|生词|词库|词汇搜索|单词收藏/i.test(str))return setView("wordbank");
  if(/诊断|评估|能力复测|错题复盘|学习证据|学习报告|学习计划|语言水平/i.test(str))return setView("coach");
  if(/零基础|从零|日常韩语|完整学习|入门学习|韩文字母|生活词汇|系统学韩语|从头学/i.test(str))return setView("journey");
  if(/TOPIK|考试|考级|模考|刷题|词义推断|阅读理解/i.test(str))return setView("topik");
@@ -218,7 +222,7 @@ function intent(q){
 function init(){
  renderProgress();
  const initial=location.hash.replace(/^#\//,"").split("/");
- const view=["today","journey","coach","topik","conversation","writing","originals","drama","phrases","course","vocab","vocab-card","schools","labs"].includes(initial[0])?initial[0]:"today";
+ const view=["today","journey","coach","culture","wordbank","topik","conversation","writing","originals","drama","phrases","course","vocab","vocab-card","schools","labs"].includes(initial[0])?initial[0]:"today";
  setView(view,{silent:true,module:initial[1]});
  const prompt=$("#v3-prompt");$("#v3-query")?.addEventListener("submit",e=>{e.preventDefault();intent(prompt.value);});
  $("#course-search")?.addEventListener("input",e=>{
@@ -230,6 +234,10 @@ function init(){
  $$("[data-v3-chip]").forEach(b=>b.onclick=()=>{prompt.value=b.dataset.v3Chip;intent(prompt.value);});
  $$("[data-v3-nav]").forEach(b=>b.onclick=()=>setView(b.dataset.v3Nav));
  document.addEventListener("kms:coach-request",()=>setView("coach"));
+ document.addEventListener("kms:culture-request",()=>setView("culture"));
+ document.addEventListener("kms:wordbank-request",()=>setView("wordbank"));
+ document.addEventListener("kms:culture-to-journey",()=>setView("journey"));
+ document.addEventListener("kms:wordbank-to-culture",()=>setView("culture"));
  document.addEventListener("kms:journey-request",ev=>{
   setView("journey");
   if(ev.detail?.unitId)document.dispatchEvent(new CustomEvent("kms:journey-select",{detail:ev.detail}));
@@ -260,6 +268,11 @@ function init(){
   const btn=e.target.closest("[data-v3-action]");
   if(!btn)return;
   if(btn.closest("#v3-home")||btn.closest("#v3-studio")){setView(btn.dataset.v3Action);}
+ });
+ window.addEventListener("hashchange",()=>{
+  const segments=(location.hash.startsWith("#/")?location.hash.slice(2):"").split("/");
+  const allowed=["today","journey","coach","culture","wordbank","topik","conversation","writing","originals","drama","phrases","course","vocab","vocab-card","schools","labs"];
+  if(allowed.includes(segments[0])&&segments[0]!==activeView)setView(segments[0],{silent:true,module:segments[1]});
  });
  window.addEventListener("storage",ev=>{if(ev.key==="zacharyKoreanDone")renderProgress();});
 }

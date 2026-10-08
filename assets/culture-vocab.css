@@ -1,0 +1,82 @@
+#korean-culture,#expanded-vocabulary{display:none}
+body[data-view="culture"] #korean-culture,body[data-view="wordbank"] #expanded-vocabulary{display:block}
+.ks-culture,.kw-shell{max-width:875px;margin:0 auto;padding:25px 0 95px;color:#20382b}
+.ks-culture h1,.kw-shell h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.045em;line-height:1.3;margin:8px 0 15px;font-weight:760}
+.ks-culture h2,.kw-shell h2{font-size:21px;letter-spacing:-.025em;color:#254935}
+.ks-lead,.kw-intro{color:#617366;font-size:14px;line-height:1.9;margin:12px 0;max-width:760px}
+.ks-eyebrow,.kw-eyebrow{font-size:11px;color:#23764e;text-transform:uppercase;font-weight:750;letter-spacing:.09em}
+.ks-stats,.kw-stats{display:flex;gap:18px;flex-wrap:wrap;margin:23px 0;padding:16px 0;border-top:1px solid #e3ece5;border-bottom:1px solid #e3ece5;color:#597365;font-size:12px}
+.ks-stats b,.kw-stats b{font-size:24px;color:#206944}
+.ks-primary,.kw-primary,.ks-outline,.kw-outline{border-radius:10px;min-height:43px;padding:11px 14px;font-size:13px;font-weight:670;cursor:pointer;border:1px solid #bfd1c4}
+.ks-primary,.kw-primary{background:#224d36;color:white;border-color:#224d36}
+.ks-outline,.kw-outline{background:white;color:#2a7150}
+.ks-primary:hover,.kw-primary:hover{background:#38674b}
+.ks-outline:hover,.kw-outline:hover{background:#f0f7f1}
+.ks-action-row,.kw-action-row{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}
+.ks-section-title{padding:15px 0;border-top:1px solid #e4ebe5;margin:30px 0 10px}
+.ks-section-title h2{margin:0}
+.ks-section-title p,.ks-mini,.kw-message{font-size:12px;color:#768579;line-height:1.85}
+.ks-case-list{border-top:1px solid #e8eee9}
+.ks-case-row{width:100%;display:grid;grid-template-columns:32px 1fr auto;gap:13px;text-align:left;padding:16px 4px;border:0;border-bottom:1px solid #e8eee9;background:white;align-items:center;cursor:pointer}
+.ks-case-row:hover{background:#f7fbf7}
+.ks-case-row strong{display:block;color:#2d4c39;font-size:14px;font-weight:680}
+.ks-case-row small{font-size:11px;color:#6b796e;display:block;line-height:1.6;margin-top:3px}
+.ks-case-row em{font-size:11px;color:#327553;font-style:normal;white-space:nowrap}
+.ks-case-num{font-size:11px;font-weight:700;color:#7c9481}
+.ks-source{font-size:12px;margin:8px 0}
+.ks-source a,.kw-license a{color:#20734e;text-decoration:none}
+.ks-source a:hover,.kw-license a:hover{text-decoration:underline}
+.ks-back,.kw-back{border:0;background:none;color:#6e826f;padding:7px 0;font-size:12px;cursor:pointer;margin:0 0 16px}
+.ks-scenario,.ks-reply,.kw-card{padding:22px;border:1px solid #e3ece4;border-radius:15px;background:white;margin:24px 0}
+.ks-scenario h2{font-size:20px}
+.ks-scenario p,.ks-reply p,.kw-card p{font-size:13px;line-height:1.8;color:#637365}
+.ks-choices{display:grid;gap:9px;margin:20px 0}
+.ks-choice{width:100%;text-align:left;display:flex;align-items:center;gap:15px;background:white;border:1px solid #dbe6dc;border-radius:10px;padding:13px;cursor:pointer}
+.ks-choice:hover:not(:disabled){background:#f2f8f2;border-color:#91b59c}
+.ks-choice:disabled{opacity:.8;cursor:default}
+.ks-choice span{color:#38835b;font-size:12px;font-weight:700}
+.ks-choice b{font-size:15px;font-weight:640;line-height:1.7;color:#2d4638}
+.ks-feedback{border-left:3px solid #51936b;background:#f3f8f2;padding:17px;margin-top:20px}
+.ks-feedback strong{color:#236b47;font-size:14px}
+.ks-feedback p[lang=ko]{color:#254a31;font-size:19px;font-weight:700}
+.ks-feedback button,.ks-response button{border:1px solid #bcd0c1;background:white;color:#2b7550;padding:8px 11px;border-radius:8px;cursor:pointer}
+.ks-response{margin:16px 0;padding:13px;background:#f8faf7;border-left:3px solid #9bba9f}
+.ks-response p[lang=ko]{font-size:16px;color:#28553b;font-weight:650}
+.ks-reply label,.kw-card label,.kw-search-row label span{display:block;font-size:12px;font-weight:650;color:#46694e;margin:12px 0 6px}
+.ks-reply textarea,.kw-card input,.kw-search-row input,.kw-search-row select{border:1px solid #cbd9ce;background:white;border-radius:10px;padding:12px;color:#274331;font:inherit;line-height:1.7;width:100%}
+.ks-reply textarea{min-height:120px;resize:vertical}
+.kw-search-row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(130px,.6fr);gap:16px;margin:20px 0 8px}
+.kw-check{display:flex;align-items:center;gap:7px;color:#617967;font-size:12px;padding:9px 0}
+.kw-count{font-size:12px;color:#788879;border-bottom:1px solid #dfe9e0;padding:16px 0 12px}
+.kw-list{border-bottom:1px solid #e3ebe5}
+.kw-word{border-bottom:1px solid #e7ede8;padding:14px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.kw-word strong{font-size:18px;display:block;font-weight:680;line-height:1.5;color:#24553a}
+.kw-word span{font-size:13px;display:block;color:#5c7362}
+.kw-word small{font-size:11px;color:#7a8b7d;line-height:1.8}
+.kw-word details{font-size:11px;color:#667c6a;margin-top:8px;max-width:650px}
+.kw-word details summary{cursor:pointer;color:#3a7552}
+.kw-word details p{font-size:13px;color:#31583d;line-height:1.8}
+.kw-word-actions{display:flex;gap:5px;flex-shrink:0}
+.kw-word-actions button,.kw-paging button{border:1px solid #d0dfd4;background:white;padding:7px 9px;color:#347851;border-radius:8px;font-size:11px;cursor:pointer}
+.kw-word-actions button:hover,.kw-paging button:hover:not(:disabled){background:#f0f7f1}
+.kw-paging{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:12px;color:#768577}
+.kw-paging button:disabled{opacity:.45;cursor:default}
+.kw-license{border-top:1px solid #e7ede8;margin:32px 0 0;padding:20px 0}
+.kw-license h2{font-size:18px}
+.kw-license p{font-size:12px;color:#69796b;line-height:1.9}
+.kw-zh{font-size:clamp(23px,3.5vw,34px);font-weight:700;color:#245239}
+.kw-card input{margin:15px 0}
+.kw-feedback{border-top:1px solid #dce9dd;margin-top:15px;padding-top:15px}
+.kw-feedback strong{font-size:14px;color:#2b7951}
+.kw-feedback p[lang=ko]{font-size:25px;font-weight:700;color:#265a3e}
+.kw-shell button:focus-visible,.ks-culture button:focus-visible,.kw-shell input:focus-visible,.ks-culture textarea:focus-visible{outline:2px solid #398a63;outline-offset:2px}
+@media(max-width:650px){
+ .ks-culture,.kw-shell{padding:14px 0 65px}
+ .ks-action-row>button,.kw-action-row>button{flex:1 1 45%}
+ .ks-case-row{grid-template-columns:25px minmax(0,1fr) 65px;gap:6px}
+ .ks-case-row em{white-space:normal;text-align:right}
+ .ks-scenario,.ks-reply,.kw-card{padding:16px 12px}
+ .kw-search-row{grid-template-columns:1fr}
+ .kw-word-actions{flex-direction:column}
+ .kw-word{align-items:flex-start}
+}

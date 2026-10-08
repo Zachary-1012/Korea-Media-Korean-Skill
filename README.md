@@ -1,5 +1,19 @@
 # Korea Media Korean Skill
 
+## 非商用学习产品 V1.4.0｜扩展词书 + 韩语礼仪
+
+本产品面向大众免费开放，**不经营付费课程、商业培训或词典收费服务**。升级后仍是网页学习产品，不声称 iOS/Android 原生 App 已上架。
+
+- **基础学习**：<https://zachary-1012.github.io/Korea-Media-Korean-Skill/#/journey>，52 个原有 A0–B2 定向学习单元与课后情境互动保留。
+- **扩展词书**：<https://zachary-1012.github.io/Korea-Media-Korean-Skill/#/wordbank>，4,704 个去重扩展词头，合法注明外部 CC BY 4.0 来源，部分词只附英文解释、词义及例句尚未经逐条母语教师确认；可搜索、收藏及间隔回忆。
+- **韩国文化与礼仪**：<https://zachary-1012.github.io/Korea-Media-Korean-Skill/#/culture>，18 个原创韩语社交场景，包括敬语、半语、称谓、感谢道歉、拜访、聚餐、职场、尊重边界和跨文化协商。
+- **客观教育证据**：<https://zachary-1012.github.io/Korea-Media-Korean-Skill/#/coach>，持续提供诊断、错题回流、异题复测、韩语回答记录及教师反馈引导。
+- **版权与来源**：见 [NONCOMMERCIAL-SOURCES.md](NONCOMMERCIAL-SOURCES.md)。外部 Koko 词汇 CC BY 4.0 署名有效；原项目版权和商用授权控制不被改变。
+- **官方词典**：<https://krdict.korean.go.kr/chn/mainAction>，需要独立取得官方 API 密钥才能在产品中通过接口搜索更广泛的官方词典信息。当前未把官方整部词典内置或接入，不对外宣称“所有韩语单词完整收录”。
+- **教育效果**：扩充词库、完成题目、52 单元自动化浏览器 PASS，都不等于已有真实学习者达到 B2。必须有真人跨日、跨周完成无提示交流，及独立教师核验后才可认定 USER OUTCOME。
+
+**单词和礼仪练习进度只存在用户自己浏览器中**，没有跨设备自动同步，开放网页不会自动把答案传给服务端。宣传视频继续冻结，待用户认可产品后再重制。
+
 ## Korean Media Study v1.3.0 Web｜从零基础到可追踪的韩语学习闭环
 
 **网页入口：** https://zachary-1012.github.io/Korea-Media-Korean-Skill/#/coach

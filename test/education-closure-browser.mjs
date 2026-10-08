@@ -117,6 +117,10 @@ try{
  assert.ok(Object.values(stored.revisions)[0].due>Date.now());
  report.push("teacher/self feedback -> new response -> scheduled delayed rewriting");
  await page.locator('[data-ec="home"]').first().click();
+ await page.evaluate(()=>{
+  localStorage.setItem("kmsExtendedVocabularyV1",JSON.stringify({saved:{사랑:{reps:1,due:Date.now()+86400000}}}));
+  localStorage.setItem("kmsKoreanEtiquetteV1",JSON.stringify({E01:{practice:{response:"안녕하세요.",at:Date.now()}}}));
+ });
  await page.locator('[data-ec="privacy"]').click();
  const dl=page.waitForEvent("download");
  await page.locator('[data-ec="backup"]').last().click();
@@ -125,14 +129,19 @@ try{
  const saved=JSON.parse(await readFile(downloaded,"utf8"));
  assert.equal(saved.app,"Korean Media Study");
  assert.equal(saved.evidence.checks.A0.retained,true);
+ assert.equal(saved.wordbank.saved.사랑.reps,1);
+ assert.ok(saved.etiquette.E01.practice.response);
  await page.once("dialog",dialog=>dialog.accept("清除学习记录"));
  await page.locator('[data-ec="clear"]').click();
  assert.equal(await page.evaluate(key=>localStorage.getItem(key),EVIDENCE_KEY),null);
+ await page.evaluate(()=>{localStorage.removeItem("kmsExtendedVocabularyV1");localStorage.removeItem("kmsKoreanEtiquetteV1");});
  await page.locator('[data-ec="privacy"]').click();
  page.once("dialog",dialog=>dialog.accept());
  await page.locator("#ec-restore-file").setInputFiles(downloaded);
  await page.waitForFunction(key=>{try{return JSON.parse(localStorage.getItem(key))?.checks?.A0?.retained===true}catch{return false}},EVIDENCE_KEY);
- report.push("learner backup → clear → restore recovers objective evidence and feedback");
+ assert.ok(await page.evaluate(()=>Boolean(JSON.parse(localStorage.getItem("kmsExtendedVocabularyV1"))?.saved?.사랑)));
+ assert.ok(await page.evaluate(()=>Boolean(JSON.parse(localStorage.getItem("kmsKoreanEtiquetteV1"))?.E01?.practice)));
+ report.push("learner backup → clear → restore recovers education, wordbook and etiquette data");
  await page.screenshot({path:join(artifacts,"education-feedback-desktop.png")});
  await desktop.close();
  const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});

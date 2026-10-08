@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.4.0 — Noncommercial vocabulary and Korean etiquette
+
+- Public learning positioning remains **free and non-commercial**; product copyright and external content licensing remain distinct.
+- Adds a CC BY 4.0 attributed, independently collected 5,000-row community dataset, resulting in 4,704 distinct Korean headwords after filtering and duplicates. Chinese glosses converted to Simplified Chinese via MIT/Apache-licensed OpenCC-JS. Some source meanings remain English and are explicitly shown. Example quality not certified.
+- Adds an expanded wordbook with Korean/Chinese search, page browsing, user-selected vocabulary, typed recall and interval scheduling; saved in browser localStorage.
+- Adds 18 original Korean etiquette scenarios: speech levels, respectful titles, introductions, dining, handing objects, declining drinks, visiting homes, workplace messaging, disagreement and boundaries. Each includes a bounded choice, explanation, and learner's own Korean response.
+- National Institute of Korean Language's official Korean-Chinese learner dictionary remains an external source. No authentication key has been proven available; the full official lexicon is not replicated or falsely claimed integrated.
+- Browser and source QA audit each authored lesson independently; scripted simulations are not human learning outcomes and must never be labeled as such.
+- Third-party license/source manifest: NONCOMMERCIAL-SOURCES.md. No third-party protected audio, drama scripts, or multimedia are imported.
+
 ## v1.3.0 — 学习结果闭环（Web Education Evidence）
 
 以实际教育证据代替刷完课程：用户能从首页进入「诊断 / 复测 / 反馈」，学习系统根据正确、错误、记忆保持及用户录入的真实反馈推荐下一件学习任务。
