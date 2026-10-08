@@ -57,6 +57,7 @@ function setView(view,opts={}){
  if(["topik","writing","conversation","vocab-card"].includes(v))renderStudio(v,opts);
  if(v==="today")renderProgress();
  if(v==="journey")document.dispatchEvent(new Event("kms:journey-open"));
+ if(v==="coach")document.dispatchEvent(new Event("kms:coach-open"));
  if(!opts.silent){
    history.replaceState(null,"","#/"+(v==="course"?v+"/"+activeModule:v));
    scrollTop();
@@ -198,6 +199,7 @@ function renderVocabCard(query){
 function intent(q){
  const str=String(q||"").trim();
  if(!str)return setView("today");
+ if(/诊断|评估|能力复测|错题复盘|学习证据|学习报告|学习计划|语言水平/i.test(str))return setView("coach");
  if(/零基础|从零|日常韩语|完整学习|入门学习|韩文字母|生活词汇|系统学韩语|从头学/i.test(str))return setView("journey");
  if(/TOPIK|考试|考级|模考|刷题|词义推断|阅读理解/i.test(str))return setView("topik");
  if(/写作|作文|邮件|写信|研究计划|批改|brief|文书/i.test(str))return setView("writing",{kind:/邮件|教授/i.test(str)?"email":/campaign|客户|品牌/i.test(str)?"work":"topik"});
@@ -216,7 +218,7 @@ function intent(q){
 function init(){
  renderProgress();
  const initial=location.hash.replace(/^#\//,"").split("/");
- const view=["today","journey","topik","conversation","writing","originals","drama","phrases","course","vocab","vocab-card","schools","labs"].includes(initial[0])?initial[0]:"today";
+ const view=["today","journey","coach","topik","conversation","writing","originals","drama","phrases","course","vocab","vocab-card","schools","labs"].includes(initial[0])?initial[0]:"today";
  setView(view,{silent:true,module:initial[1]});
  const prompt=$("#v3-prompt");$("#v3-query")?.addEventListener("submit",e=>{e.preventDefault();intent(prompt.value);});
  $("#course-search")?.addEventListener("input",e=>{
@@ -227,6 +229,11 @@ function init(){
  });
  $$("[data-v3-chip]").forEach(b=>b.onclick=()=>{prompt.value=b.dataset.v3Chip;intent(prompt.value);});
  $$("[data-v3-nav]").forEach(b=>b.onclick=()=>setView(b.dataset.v3Nav));
+ document.addEventListener("kms:coach-request",()=>setView("coach"));
+ document.addEventListener("kms:journey-request",ev=>{
+  setView("journey");
+  if(ev.detail?.unitId)document.dispatchEvent(new CustomEvent("kms:journey-select",{detail:ev.detail}));
+ });
  const lesson=$("#v3-next-lesson");if(lesson)lesson.onclick=()=>{const ids=completed(),n=Array.from({length:48},(_,i)=>i+1).find(i=>!ids.includes(i))||1;openLesson(n);};
  document.addEventListener("click",ev=>{const b=ev.target.closest("[data-module]");if(b)setView("course",{module:b.dataset.module});});
  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>{if(/^K\d{2}$/.test(b.dataset.go)){setView("course",{module:b.dataset.go});}else if(b.dataset.go==="originals"||b.dataset.go==="schools"||b.dataset.go==="drama"||b.dataset.go==="vocab"||b.dataset.go==="phrases"||b.dataset.go==="labs"){setView(b.dataset.go);}},true));

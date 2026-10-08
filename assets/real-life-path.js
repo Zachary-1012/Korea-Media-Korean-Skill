@@ -48,7 +48,7 @@ function renderOverview(){
  const summary='<div class="rl-metrics"><span><b>'+n.completed+'</b> / '+KOREAN_COUNTS.units+' 单元自评通过</span><span><b>'+n.due+'</b> 个待复习</span><span><b>'+KOREAN_COUNTS.uniqueWords+'</b> 个去重生活词条</span></div>'+
  '<div class="rl-main-actions"><button class="rl-primary" data-rl="resume">开始：'+esc(suggested.title)+' →</button>'+
  '<button class="rl-outline" data-rl="review">复习到期词汇'+(n.due?"（"+n.due+"）":"")+'</button>'+
- '<button class="rl-outline" data-rl="dictionary">生活词库</button></div>';
+ '<button class="rl-outline" data-rl="dictionary">生活词库</button><button class="rl-outline" data-rl="coach">诊断 · 复测 · 纠错记录</button></div>';
  const levels=KOREAN_LEVELS.map(l=>{
  const us=KOREAN_UNITS.filter(u=>u.level===l.id);
  const count=us.filter(u=>state.units[u.id]?.passed).length;
@@ -61,7 +61,7 @@ function renderOverview(){
  }).join("");
  shell(title+summary+
  '<div class="rl-section-head"><h2>你接下来会学习什么</h2><p>按照“可完成的真实任务”递进，支持随时跳到已掌握阶段。</p></div>'+
- levels+'<p class="rl-caveat">B1 是本次课程的练习目标，不是软件提供的正式语言证书；想达到 B2 自然复杂交流还需要更大规模的阅读与听力材料，以及真人持续反馈。</p>');
+ levels+'<p class="rl-caveat">本路线包含 B2 情境练习，但练习完成不等于达到 B2。自然、复杂的韩语交流仍需要更多真实听力与阅读输入、充分实践和有资质人员的能力评价。</p>');
 }
 function renderLesson(){
  const u=unit(),n=stats();
@@ -314,6 +314,7 @@ root.addEventListener("click",ev=>{
   if(p){p.hidden=!p.hidden;target.textContent=p.hidden?"看中文":"隐藏中文";}return;
  }
  const action=target.dataset.rl;if(!action)return;
+ if(action==="coach"){document.dispatchEvent(new Event("kms:coach-request"));return;}
  if(action==="overview")return navigate("overview");
  if(action==="lesson")return navigate("lesson");
  if(action==="dictionary")return navigate("dictionary");
@@ -372,5 +373,6 @@ root.addEventListener("click",ev=>{
 root.addEventListener("keydown",ev=>{
  if(ev.key==="Enter"&&ev.target?.id==="rl-typing"){ev.preventDefault();solve(ev.target.value);}
 });
+document.addEventListener("kms:journey-select",ev=>{if(ev.detail?.unitId)select(ev.detail.unitId);});
 document.addEventListener("kms:journey-open",()=>{state=load();if(panel!=="overview"&&panel!=="lesson")panel="overview";render();});
 if(document.body.dataset.view==="journey")render();

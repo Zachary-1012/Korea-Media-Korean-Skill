@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.3.0 — 学习结果闭环（Web Education Evidence）
+
+以实际教育证据代替刷完课程：用户能从首页进入「诊断 / 复测 / 反馈」，学习系统根据正确、错误、记忆保持及用户录入的真实反馈推荐下一件学习任务。
+
+- **起点诊断**：A0/A1/A2/B1/B2 五组循序阅读与听力理解题，分数只推荐课程起点，不冒充 CEFR 或 TOPIK 官方证书。设备无法真正播放韩语时，可用文本替代，但听力证据明确标为未验证。
+- **阶段分项验证**：每一级都有不同的限定阅读、听辨、听写、情境迁移题。答题后才公布解释；听写计算归一化文本相似度，迁移题只校验已声明的关键语义词，不冒充语法和口语自动评分。
+- **24 小时保持证据**：首次客观部分通过必须隔至少一天才进入另一组听写与迁移任务。当天复刷不能提前写入 retained 状态，时间以浏览器本机数据记录，仅作个人学习参考。
+- **针对错题补练**：系统从阶段错误题目定位相关生活课程，优先安排复习；与已有 52 个生活单元的词卡间隔重复、实景多轮回答衔接。
+- **具体纠错、重写与再复习**：用户可以把来自老师、同伴或自评的意见留成纠错任务，独立重写、避免直接照抄，并按隔天、3 天、7 天等节点再练；仅记录用户自行录入的评价，不假装平台核验教师身份、真实发音或交流水平。
+- **学习证据管理**：包含诊断、错题、复测、修改记录、可选语音行为提示的本地学习日志；导出/恢复 JSON、可选择是否把私人旧版草稿纳入备份、清理本次本地数据。
+- **移动端与兼容性**：公开站 `#/coach`；保留 `#/journey` 52 单元、48 节原有课程及原 TOPIK/对话/写作功能，无新付费 AI API、无用户账号与新的数据库服务。
+- **分层事实**：MCP 远端既有插件服务、原有 ChatGPT 公共目录审核与独立网页版并非同一发布流程；本次升级仅面向现有 GitHub Pages，不虚报第三方审核、外部教师认证或长期用户学习效果。
+
+技术证据路径：`lib/learning-assessments.mjs`、`lib/learning-evidence.mjs`、`assets/education-coach.js`、`assets/education-coach.css`、`test/learning-evidence.test.mjs`、`test/education-closure-browser.mjs`。
+
+设计依据：Council of Europe CEFR 限定任务与多能力维度（https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors）；Duolingo 公开的间隔复习与个性化纠错说明（https://blog.duolingo.com/spaced-repetition-for-learning/）；韩国国立国语院官方韩中学习词典（https://krdict.korean.go.kr/chn/mainAction）。不复用其他产品品牌、课程、商标或音轨。
+
 ## v1.2.0 — Real-life Korean, from Hangul to extended conversation (web)
 
 - Added a general-audience five-stage practice path: A0, A1, A2, B1, and B2-oriented challenges, authored as 52 progressive units.
