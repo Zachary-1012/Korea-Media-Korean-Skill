@@ -56,6 +56,7 @@ function setView(view,opts={}){
  if(v==="course")activateModule(opts.module||activeModule,false);
  if(["topik","writing","conversation","vocab-card"].includes(v))renderStudio(v,opts);
  if(v==="today")renderProgress();
+ if(v==="journey")document.dispatchEvent(new Event("kms:journey-open"));
  if(!opts.silent){
    history.replaceState(null,"","#/"+(v==="course"?v+"/"+activeModule:v));
    scrollTop();
@@ -197,6 +198,7 @@ function renderVocabCard(query){
 function intent(q){
  const str=String(q||"").trim();
  if(!str)return setView("today");
+ if(/零基础|从零|日常韩语|完整学习|入门学习|韩文字母|生活词汇|系统学韩语|从头学/i.test(str))return setView("journey");
  if(/TOPIK|考试|考级|模考|刷题|词义推断|阅读理解/i.test(str))return setView("topik");
  if(/写作|作文|邮件|写信|研究计划|批改|brief|文书/i.test(str))return setView("writing",{kind:/邮件|教授/i.test(str)?"email":/campaign|客户|品牌/i.test(str)?"work":"topik"});
  if(/对话|口语|开口|聊天|客户会议|面试|咖啡|沟通|交流/i.test(str)){
@@ -214,7 +216,7 @@ function intent(q){
 function init(){
  renderProgress();
  const initial=location.hash.replace(/^#\//,"").split("/");
- const view=["today","topik","conversation","writing","originals","drama","phrases","course","vocab","vocab-card","schools","labs"].includes(initial[0])?initial[0]:"today";
+ const view=["today","journey","topik","conversation","writing","originals","drama","phrases","course","vocab","vocab-card","schools","labs"].includes(initial[0])?initial[0]:"today";
  setView(view,{silent:true,module:initial[1]});
  const prompt=$("#v3-prompt");$("#v3-query")?.addEventListener("submit",e=>{e.preventDefault();intent(prompt.value);});
  $("#course-search")?.addEventListener("input",e=>{
