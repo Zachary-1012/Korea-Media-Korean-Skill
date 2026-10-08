@@ -37,9 +37,17 @@ async function loadWords(){
  '<button class="kw-primary" data-kw="retry">重新加载词库</button>');return false});
  return loadPromise;
 }
+function allRows(){
+ const official=new Map(Object.entries(get()).filter(([,v])=>v?.source==="krdict"&&Array.isArray(v.row))
+  .map(([word,record])=>[word,record.row]));
+ const base=wordRows.map(w=>official.get(w[0])||w);
+ const known=new Set(base.map(w=>w[0]));
+ for(const [word,row] of official)if(!known.has(word))base.push(row);
+ return base;
+}
 function matchRows(){
  const query=search.trim().toLocaleLowerCase(),saved=get();
- return wordRows.filter(w=>{
+ return allRows().filter(w=>{
   if(onlySaved&&!saved[w[0]])return false;
   if(difficulty!=="全部"&&w[5]!==difficulty)return false;
   if(!query)return true;
@@ -79,14 +87,14 @@ function library(){
  '<div class="kw-license"><h2>词库来源、质量与非商用边界</h2>'+
  '<p><a href="'+esc(meta.source.url)+'" target="_blank" rel="noopener noreferrer">Koko Korean 5K, Koko AI ↗</a>，'+
  '<a href="'+esc(meta.source.licenseUrl)+'" target="_blank" rel="noopener noreferrer">CC BY 4.0 ↗</a>。原始繁体数据经去重、模板例句过滤、简体转换；未声称由韩国国立国语院审核。</p>'+
- '<p>需要更权威的释义及生词：<a href="https://krdict.korean.go.kr/chn/mainAction" target="_blank" rel="noopener noreferrer">韩国国立国语院韩中学习词典 ↗</a>。官方 API 需要独立申请认证密钥，此网页目前未连接该 API，不会冒充拥有全部韩语词汇。</p>'+
+ '<p>需要更权威的释义及生词：<a href="https://krdict.korean.go.kr/chn/mainAction" target="_blank" rel="noopener noreferrer">韩国国立国语院韩中学习词典 ↗</a>。官方词典已提供上方的按需在线检索入口；不会将官方词库全集复制到本站，也不会在浏览器公开 API 密钥。</p>'+
  '<p>收录词头总量不等于语言教学效果。用户添加词条后需要进行主动回忆与真实表达，学习者仍应向教师核实多义词及自然用法。</p></div>');
 }
 function beginStudy(){
  if(!wordRows){library();return;}
  const saved=get(),now=Date.now();
- queue=wordRows.filter(w=>saved[w[0]]&&Number(saved[w[0]].due||0)<=now).slice(0,15);
- if(!queue.length)queue=wordRows.filter(w=>saved[w[0]]).slice(0,10);
+ queue=allRows().filter(w=>saved[w[0]]&&Number(saved[w[0]].due||0)<=now).slice(0,15);
+ if(!queue.length)queue=allRows().filter(w=>saved[w[0]]).slice(0,10);
  view="study";feedback=null;renderStudy();
 }
 function renderStudy(){
@@ -115,7 +123,7 @@ function updateRecall(remembered){
  const current=get()[focus[0]]||{reps:0,due:Date.now()};
  const reps=remembered?Math.max(0,Number(current.reps||0))+1:0;
  const days=[1,3,7,15,30,60,120][Math.min(Math.max(0,reps-1),6)];
- state.saved[focus[0]]={due:Date.now()+(remembered?days*86400000:600000),reps,
+ state.saved[focus[0]]={...current,due:Date.now()+(remembered?days*86400000:600000),reps,
   errors:Number(current.errors||0)+(remembered?0:1),last:Date.now()};
  save();feedback={ok:remembered};renderStudy();
 }
@@ -160,6 +168,9 @@ root.addEventListener("click",e=>{
   case "retry":loadPromise=null;render();break;
   case "culture":document.dispatchEvent(new Event("kms:wordbank-to-culture"));break;
  }
+});
+document.addEventListener("kms:wordbank-updated",()=>{
+ state=loadState();if(view==="search"&&document.body.dataset.view==="wordbank")library();
 });
 document.addEventListener("kms:wordbank-open",()=>{view="search";render();});
 if(document.body.dataset.view==="wordbank")render();

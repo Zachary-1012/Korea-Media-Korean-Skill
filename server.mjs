@@ -8,6 +8,7 @@ import {
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
+import {createKrdictRoute} from "./lib/krdict-route.mjs";
 import {
   COURSE_URL,
   comparePrograms,
@@ -29,6 +30,7 @@ const port = Number(process.env.PORT || 8787);
 const MCP_PATH = "/mcp";
 const publicOrigin = String(process.env.PUBLIC_ORIGIN || "").replace(/\/+$/, "");
 const challengeToken = process.env.OPENAI_APPS_CHALLENGE || "";
+const handleOfficialDictionary= createKrdictRoute();
 
 const noauth = [{ type: "noauth" }];
 const readOnlyAnnotations = {
@@ -400,6 +402,12 @@ const httpServer = createServer(async (req, res) => {
     return;
   }
   const url = new URL(req.url, "http://" + (req.headers.host || "localhost"));
+
+  // Independent read-only official dictionary endpoint; preserve MCP route and auth behavior.
+  if (url.pathname === "/api/krdict/search") {
+    await handleOfficialDictionary(req,res,url);
+    return;
+  }
 
   if (req.method === "OPTIONS" && url.pathname === MCP_PATH) {
     res.writeHead(204, {

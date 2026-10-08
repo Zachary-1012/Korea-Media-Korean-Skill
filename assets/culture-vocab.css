@@ -80,3 +80,38 @@ body[data-view="culture"] #korean-culture,body[data-view="wordbank"] #expanded-v
  .kw-word-actions{flex-direction:column}
  .kw-word{align-items:flex-start}
 }
+
+/* Official dictionary is a separate live lookup surface, never a static copy of KRDict. */
+#official-krdict{display:none}
+body[data-view="wordbank"] #official-krdict{display:block}
+.nikl-shell{max-width:875px;margin:0 auto;padding:18px 0 10px;border-bottom:1px solid #e4ebe4;color:#223d2e}
+.nikl-shell h2{font-size:clamp(20px,3vw,28px);line-height:1.4;letter-spacing:-.035em;margin:8px 0 12px}
+.nikl-eyebrow{font-size:11px;font-weight:750;letter-spacing:.075em;color:#23794f}
+.nikl-intro,.nikl-source{font-size:12px;line-height:1.85;color:#677969}
+.nikl-source{margin:20px 0 25px}
+.nikl-source a,.nikl-entry a{color:#237951;text-decoration:none}
+.nikl-source a:hover,.nikl-entry a:hover{text-decoration:underline}
+.nikl-form{margin:20px 0 10px}
+.nikl-form label{font-size:12px;font-weight:680;color:#446b4f;display:block;margin-bottom:8px}
+.nikl-query-row{display:flex;gap:10px;align-items:stretch}
+.nikl-query-row input{flex:1;min-width:0;border:1px solid #cadccf;border-radius:9px;padding:11px 13px;color:#1d4730;font:inherit;font-size:16px}
+.nikl-query-row button,.nikl-entry button{border:1px solid #226b49;border-radius:9px;background:#245139;color:#fff;padding:10px 14px;cursor:pointer;font-size:12px}
+.nikl-query-row button:hover,.nikl-entry button:hover{background:#367451}
+.nikl-query-row button:disabled{opacity:.5;cursor:default}
+.nikl-query-row input:focus-visible,.nikl-query-row button:focus-visible,.nikl-entry button:focus-visible{outline:2px solid #247e54;outline-offset:2px}
+#nikl-status,.nikl-summary{font-size:12px;line-height:1.7;color:#66806f;margin:9px 0}
+.nikl-results{border-top:1px solid #dce8df}
+.nikl-entry{padding:14px 0;border-bottom:1px solid #e1ebe3}
+.nikl-entry-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.nikl-entry-top strong{font-size:21px;font-weight:730;color:#275e40;display:block}
+.nikl-entry-top span{display:block;font-size:11px;color:#6f8374;line-height:1.8}
+.nikl-gloss{font-size:14px;font-weight:570;line-height:1.8;color:#365d42}
+.nikl-entry details{margin:9px 0;font-size:12px;color:#496a52}
+.nikl-entry details summary{cursor:pointer;font-weight:600}
+.nikl-entry details p{line-height:1.75;font-size:12px;margin:7px 0;color:#647b69}
+.nikl-entry details p[lang=ko]{color:#28583d;font-size:14px}
+.nikl-entry p{font-size:12px}
+@media(max-width:600px){.nikl-shell{padding:16px 0 8px}
+ .nikl-query-row{flex-direction:column}.nikl-query-row button{min-height:42px}
+ .nikl-entry-top{flex-direction:column;align-items:flex-start}.nikl-entry button{min-height:40px}
+}

@@ -1,5 +1,14 @@
 # Korean Media Study｜非商业教育资源与词库版权清单
 
+## 官方词典在线检索补充（V1.4.1）
+
+- 韩国国立国语院词典（https://krdict.korean.go.kr/chn/mainAction）通过现有 Railway 服务安全代理按需查询，正式接口 `/api/search`，使用中文翻译参数 `translated=y&trans_lang=11`。
+- 服务端认证密钥是环境变量 `KRDICT_API_KEY`，不进入公开代码。前端只收必要的词条、词性、读音文本和中文释义。
+- 官方词典版权归其原始提供方，结果保留回源链接；不下载全量词典，不转载多媒体音轨。
+- 社区词库 Koko AI（CC BY 4.0）的 4,704 个词头为另一独立来源，不因官方接口接入变成官方词典内容。
+- 官方查询涉及的韩语搜索词会经过现有 Railway 服务和官方服务器，可能产生请求日志；学习卡与个人练习记录仍默认只在浏览器保存。
+- “官方真实 API 可用”必须通过在线查询验证，不能仅凭配置环境变量或返回 HTTP 200 宣称通过。
+
 > Korean Media Study 是免费开放、非商业的韩语自学产品。免费使用是产品定位，不代表它或其作者自动取得任何第三方资料的无条件再授权。
 
 ## 1. 数据来源与许可
@@ -44,13 +53,13 @@
 
 **不把文化刻板印象当教学规则**：用语与行为会随年龄、职级、关系、组织、地区、残障和个人偏好变化；允许婉拒饮酒；礼貌不等于牺牲自己的边界。
 
-## 4. 无密钥情况下官方词典连接状态
+## 4. 官方词典安全查询连接状态（V1.4.1）
 
 - 官网：https://krdict.korean.go.kr/chn/mainAction
 - 官方 API 文档：https://krdict.korean.go.kr/chn/openApi/openApiInfo
-- 密钥申请：https://krdict.korean.go.kr/eng/openApi/openApiRegister
-- 当前：**API KEY NOT VERIFIED；官方批量词库 NOT INTEGRATED**。
-- 任何未来密钥只允许由用户授权后，在安全服务端保存。不得放在 GitHub Pages 静态 JS 或公开仓库。
+- API 认证密钥已写入已有 Korean Media Study Railway 服务的私有变量；仓库和前端不含密钥。
+- 产品只按用户输入查询，不提供整部官方词典离线批量复制。
+- 服务器环境变量配置与 API 真实可用是不同验收层级；必须在生产服务完成真实词条查询才可宣称当前已连接。
 
 ## 5. 教育结果与本轮验收分层
 

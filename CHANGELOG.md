@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.1 — Official dictionary live lookup with a private backend key
+
+- Added a bounded read-only dictionary proxy to the existing Korean Media Study Railway MCP service. The credential stays in private service environment `KRDICT_API_KEY`, never GitHub Pages or the repository.
+- Parses official XML search results for Korean words, Chinese translations, pronunciation text, part of speech and links, without copying the official dictionary in bulk.
+- Frontend official search is separate from the 4,704-word attributed CC BY community dictionary. Learners can save official words to their existing personal spaced repetition flow.
+- Added request validation, fixed official upstream, rate limits, upstream timeout/size safeguards, controlled browser origin and safe error responses. No new paid services.
+- Added fake-key XML/provider tests and real browser search → save → recall → persistent source tests. Live provider authorization is verified separately from simulations.
+
 ## v1.4.0 — Noncommercial vocabulary and Korean etiquette
 
 - Public learning positioning remains **free and non-commercial**; product copyright and external content licensing remain distinct.
